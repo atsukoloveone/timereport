@@ -38,6 +38,8 @@
     "bootstrap": "^4.0.0",
     "browserify": "^13.3.0",
     "react-bootstrap": "^0.32.1",
-    "react-scripts": "^1.1.1"
+    "react-scripts": "^1.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   }
 }

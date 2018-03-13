@@ -1,7 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import logger from 'redux-logger'
+import thunk from 'redux-thunk'
+import { getTodosIfNeeded } from './actions/index.js';
+import { createStore, applyMiddleware  } from 'redux';
+
 import todoApp from './reducers';
 import App from './components/App';
 
@@ -13,9 +17,11 @@ const initialState = {
 
 let store = createStore(
   todoApp, 
-  initialState
+  applyMiddleware(thunk, logger)
+  //initialState
 );
 
+store.dispatch(getTodosIfNeeded());
 //let store = createStore(todoAtodoApppp);
 
 render(

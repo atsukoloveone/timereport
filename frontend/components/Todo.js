@@ -8,7 +8,7 @@ class Todo extends React.Component {
         onClick={this.props.onClick}
         style={{ textDecoration: this.props.completed ? 'line-through' : 'none' }}
         >
-        {this.props.text}
+        {this.props.id} {this.props.text}
       </li>
     );
   }
