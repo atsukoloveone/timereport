@@ -1,4 +1,4 @@
-let nextTodoId = 0; //TODOのid管理するための変数
+let nextTodoId = 10; //TODOのid管理するための変数
 
 
 //TODOをfetchする
@@ -57,6 +57,26 @@ function getTodos(store) {
    };
 }
 
+function addTodoDb(text) {
+console.log("addTodoDb"); 
+       console.log(text);      
+   return dispatch => {
+       dispatch(fetchTodos());
+       fetch('http://127.0.0.1:4000/todos/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            text: text,
+            completed: 0,
+          })
+        })
+         //.then(response => response.json())
+         //.then(data => dispatch(receiveTodos(data)));
+   };
+}
+
 export function getTodosIfNeeded() {
     return (dispatch, getState) => {
         if(getState().isFetching) {
@@ -66,3 +86,19 @@ export function getTodosIfNeeded() {
         }
     };
 }
+
+export function addTodoIfNeeded(text) {
+       console.log("addTodoIfNeeded");  
+       console.log(text);  
+    return (dispatch, getState) => {
+        if(getState().isFetching) {
+           console.log("addTodoIfNeeded isFetching");  
+
+            return Promise.resolve();
+        } else {
+              console.log("addTodoIfNeeded Fetching");  
+            return dispatch(addTodoDb(text));
+        }
+    };
+}
+

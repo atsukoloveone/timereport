@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-
+import { addTodoIfNeeded } from '../actions/index.js';
 
 // 一つ一つのTODOを処理するための関数（todosから利用されます）
 const todo = (state, action) => {
@@ -9,7 +9,7 @@ const todo = (state, action) => {
       return {
         id: action.id,
         text: action.text,
-        completed: false
+        completed: 0
       };
     case 'TOGGLE_TODO':
       if (state.id !== action.id) {

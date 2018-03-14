@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions';
+import { addTodoIfNeeded } from '../actions';
+
 import { button } from 'react-bootstrap';
 
 class AddTodo extends React.Component {
@@ -12,6 +14,7 @@ class AddTodo extends React.Component {
           e.preventDefault()
           if (!input.value.trim()) {　return }
           this.props.dispatch(addTodo(input.value))
+          this.props.dispatch(addTodoIfNeeded(input.value))
           //↑ActionCreatorからActionを取得し、Storeに渡している
           input.value = ''
         }}>
