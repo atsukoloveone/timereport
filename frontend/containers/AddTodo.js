@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 import { addTodoIfNeeded } from '../actions';
+import {Form, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 
-import { button } from 'react-bootstrap';
+
 
 class AddTodo extends React.Component {
   render() {
@@ -21,9 +22,9 @@ class AddTodo extends React.Component {
           <input ref={node => {
             input = node
           }} />
-          <button type="submit" class="btn btn-primary">
+          <Button bsStyle="info" type="submit" class="btn btn-large btn-primary">
             Add Todo
-          </button>
+          </Button>
         </form>
       </div>
     );
