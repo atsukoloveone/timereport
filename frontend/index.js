@@ -10,7 +10,7 @@ import { getTodosIfNeeded } from './actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import { Router, Route, browserHistory } from 'react-router-dom'
+import { Router, Route, browserHistory, BrowserRouter, Link } from 'react-router-dom'
 
 import { createHashHistory } from 'history'
 import todoApp from './reducers';
@@ -35,12 +35,14 @@ store.dispatch(getTodosIfNeeded());
 render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme()}>
-     <Router history={history}> 
-        <Route path="/" component={App} >
-        <Route path="/Activity" component={Activity}/>
-     </Route>
-    </Router>
-    </MuiThemeProvider>
+       <Router history={history}> 
+    <div>
+     <Link to="/Activity" >Activity</Link>
+        <Route name="App" path="/" component={App} />    
+        <Route name="Activity" path="/Activity" component={Activity} />
+    </div>
+   </Router>
+ </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
