@@ -37,7 +37,10 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "browserify": "^13.3.0",
+    "history": "^4.7.2",
+    "material-ui": "^0.20.0",
     "react-bootstrap": "^0.32.1",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "^1.1.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
