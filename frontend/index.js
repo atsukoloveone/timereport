@@ -5,7 +5,8 @@ import { createStore, applyMiddleware ,combineReducers } from 'redux';
 
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-//import  { getTodosIfNeeded  } from './actions';
+import thunkMiddleware from 'redux-thunk';
+import  { getTodosIfNeeded  } from './actions';
 import  { getActivitiesIfNeeded  } from './actions/activity';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -23,7 +24,8 @@ import Sidebar from './components/Sidebar';
 
 const history = createHashHistory();
 const initialState = { 
-  todos: [{id:123, text:'hello', completed: false}] 
+  todos: [{id:123, text:'hello', completed: false}] ,
+  activities: [{actionId:123, name:'hello'}] 
 };
 
 //let store = createStore(todoApp);
@@ -31,14 +33,14 @@ const initialState = {
 let store = createStore(
     
     //todoApp,
-    activityApp,
+    //activityApp,
     
-    //combineReducers({todoApp, activityApp}) ,   
+    combineReducers({todoApp, activityApp}) ,   
     applyMiddleware(thunk, logger),
   //initialState
 );
 
-//store.dispatch(getTodosIfNeeded());
+store.dispatch(getTodosIfNeeded());
 store.dispatch(getActivitiesIfNeeded());
 
 
@@ -50,7 +52,7 @@ render(
         <Sidebar />
         <div style={{paddingLeft:300}}>
         <div>
-            
+            <Route name="App" exact  path="/" component={App} />  
             <Route name="Activity"  exact path="/activity" component={Activity} />
         </div>
         <Footer />

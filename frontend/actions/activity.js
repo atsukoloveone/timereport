@@ -10,7 +10,8 @@ export const fetchActivities = () => {
 
 
 export function receiveActivities(activities) {
-    console.log(activities);
+    console.log("receiveActivities");
+    console.log(activities);    
     return {
         type: 'RECEIVE_ACTIVITIES',
         activities: activities
@@ -43,14 +44,13 @@ export const toggleActivity = (id) => {
 //ACTIVITYをフィルタリングする
 export const setVisibilityFilter = (filter) => {
   return {
-    type: 'SET_VISIBILITY_FILTER',
+    type: 'SET_VISIBILITY_FILTER_ACTIVITY',
     filter
   };
 };
 
 function getActivities() {
    return dispatch => {
-              console.log("getActivities");  
        dispatch(fetchActivities());
        return fetch('http://127.0.0.1:4000/timereport/activities')
          .then(response => response.json())
@@ -59,8 +59,6 @@ function getActivities() {
 }
 
 function addActivityDb(text) {
-console.log("addActivityDb"); 
-       console.log(text);      
    return dispatch => {
        dispatch(fetchActivities());
        fetch('http://127.0.0.1:4000/timereport/activities/new', {

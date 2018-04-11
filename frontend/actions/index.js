@@ -10,6 +10,7 @@ export const fetchTodos = () => {
 
 
 export function receiveTodos(todos) {
+    console.log("receiveTodos");
     console.log(todos);
     return {
         type: 'RECEIVE_TODOS',
@@ -43,7 +44,7 @@ export const toggleTodo = (id) => {
 //TODOをフィルタリングする
 export const setVisibilityFilter = (filter) => {
   return {
-    type: 'SET_VISIBILITY_FILTER',
+    type: 'SET_VISIBILITY_FILTER_TODO',
     filter
   };
 };
@@ -51,7 +52,7 @@ export const setVisibilityFilter = (filter) => {
 function getTodos() {
    return dispatch => {
        dispatch(fetchTodos());
-       return fetch('http://127.0.0.1:4000/timereport/activities')
+       return fetch('http://127.0.0.1:4000/todos')
          .then(response => response.json())
          .then(data => dispatch(receiveTodos(data)));
    };
@@ -62,7 +63,7 @@ console.log("addTodoDb");
        console.log(text);      
    return dispatch => {
        dispatch(fetchTodos());
-       fetch('http://127.0.0.1:4000/timereport/activities/new', {
+       fetch('http://127.0.0.1:4000/todos/new', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

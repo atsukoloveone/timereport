@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { toggleTodo } from '../actions';
+import { toggleTodo } from '../actions/index';
 import TodoList from '../components/TodoList';
 
 // フィルタリング状態によってTODOリストの絞り込みを行う
@@ -16,8 +16,11 @@ const getVisibleTodos = (todos, filter) => {
 
 // StateをViewのプロパティに落としこむ
 const mapStateToProps = (state) => {
+          console.log("mapStateToProps");
+          console.log(state);      
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    
+    todos: getVisibleTodos(state.todoApp.todos, state.todoApp.visibilityFilter)
   };
 };
 

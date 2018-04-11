@@ -17,8 +17,10 @@ const getVisibleActivities = (activities, filter) => {
 
 // StateをViewのプロパティに落としこむ
 const mapStateToProps = (state) => {
+          console.log("mapStateToProps activities");
+          console.log(state.activities);       
   return {
-    activities: getVisibleActivities(state.activities, state.visibilityFilter)
+    activities: getVisibleActivities(state.activityApp.activities, state.activityApp.visibilityFilter)
   };
 };
 

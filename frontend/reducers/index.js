@@ -25,7 +25,8 @@ const todo = (state, action) => {
 
 // 複数のTODOを処理するための関数
 const todos = (state = [], action) => {
-
+console.log("reducer");
+console.log(state);
   switch (action.type) {
     case 'FETCH_TODOS':
             return state;
@@ -48,7 +49,7 @@ const todos = (state = [], action) => {
 // TODOの表示状態を処理するための関数
 const visibilityFilter = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
+    case 'SET_VISIBILITY_FILTER_TODO':
       return action.filter;
     default:
       return state;

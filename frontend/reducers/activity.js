@@ -25,13 +25,12 @@ const activity = (state, action) => {
 
 // 複数のACTIVITYを処理するための関数
 const activities = (state = [], action) => {
-
+          console.log("action");
+          console.log(action);
   switch (action.type) {
     case 'FETCH_ACTIVITIES':
             return state;
     case 'RECEIVE_ACTIVITIES':
-                    console.log("action");
-          console.log(action);
           return  action.activities;
     case 'ADD_ACTIVITY':
       return [
@@ -50,7 +49,7 @@ const activities = (state = [], action) => {
 // ACTIVITYの表示状態を処理するための関数
 const visibilityFilter = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
+    case 'SET_VISIBILITY_FILTER_ACTIVITY':
       return action.filter;
     default:
       return state;

@@ -1,31 +1,20 @@
 import React, { PropTypes } from 'react';
 import Todo from './Todo';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
-
+// TodoListの実体は<ul>~</ul>
+// リストの中の<li>~</li>はTodoコンポーネントを使用している
 class TodoList extends React.Component {
-state = {
-    value: 1,
-  };
-
-    handleChange = (event, index, value) => this.setState({value});
-   render() {
+  render() {
     return (
-    <div>        
-        <SelectField
-          floatingLabelText="Aktivitet name:"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
+      <ul>
         {this.props.todos.map(todo =>
-      <MenuItem
-         key={todo.actionId} value={todo.actionId} primaryText={todo.name}
-         />        
-
-        )}        
-        </SelectField>
-         </div>
+          <Todo
+            key={todo.id}
+            {...todo}
+            onClick={() => this.props.onTodoClick(todo.id)}
+          />
+        )}
+      </ul>
     );
   }
 }
@@ -33,8 +22,9 @@ state = {
 // 制約の指定
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
-    actionId: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
   }).isRequired).isRequired,
   onTodoClick: PropTypes.func.isRequired
 };
