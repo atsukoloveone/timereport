@@ -22,7 +22,7 @@ class AddTodo extends React.Component {
           <input ref={node => {
             input = node
           }} />
-          <Button type="submit" className="btn btn-large btn-primary">
+          <Button type="submit" class="btn btn-large btn-primary">
             Add Todo
           </Button>
         </form>

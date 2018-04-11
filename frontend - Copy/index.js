@@ -1,12 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware ,combineReducers } from 'redux';
+import { createStore, applyMiddleware  } from 'redux';
 
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-//import  { getTodosIfNeeded  } from './actions';
-import  { getActivitiesIfNeeded  } from './actions/activity';
+import { getTodosIfNeeded, getActivitiesIfNeeded } from './actions';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -29,18 +28,14 @@ const initialState = {
 //let store = createStore(todoApp);
 
 let store = createStore(
-    
-    //todoApp,
-    activityApp,
-    
-    //combineReducers({todoApp, activityApp}) ,   
+    todoApp,
+   // activityApp(),
     applyMiddleware(thunk, logger),
   //initialState
 );
 
-//store.dispatch(getTodosIfNeeded());
-store.dispatch(getActivitiesIfNeeded());
-
+store.dispatch(getTodosIfNeeded());
+//store.dispatch(getActivitiesIfNeeded());
 
 render(
   <Provider store={store}>
@@ -50,7 +45,7 @@ render(
         <Sidebar />
         <div style={{paddingLeft:300}}>
         <div>
-            
+            <Route name="App" exact  path="/" component={App} />    
             <Route name="Activity"  exact path="/activity" component={Activity} />
         </div>
         <Footer />

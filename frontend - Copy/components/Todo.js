@@ -5,6 +5,8 @@ import MenuItem from 'material-ui/MenuItem';
 class Todo extends React.Component {
     
   render() {
+          console.log("Todo");
+          console.log(this);
     return (
       <MenuItem
         value={this.props.actionId} primaryText={this.props.name}

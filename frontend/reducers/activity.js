@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 
 
-// 一つ一つのTODOを処理するための関数（todosから利用されます）
-const todo = (state, action) => {
+// 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
+const activity = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_ACTIVITY':
       return {
         id: action.id,
         text: action.text,
         completed: 0
       };
-    case 'TOGGLE_TODO':
+    case 'TOGGLE_ACTIVITY':
       if (state.id !== action.id) {
         return state;
       }
@@ -23,29 +23,31 @@ const todo = (state, action) => {
   }
 }
 
-// 複数のTODOを処理するための関数
-const todos = (state = [], action) => {
+// 複数のACTIVITYを処理するための関数
+const activities = (state = [], action) => {
 
   switch (action.type) {
-    case 'FETCH_TODOS':
+    case 'FETCH_ACTIVITIES':
             return state;
-    case 'RECEIVE_TODOS':
-          return  action.todos;
-    case 'ADD_TODO':
+    case 'RECEIVE_ACTIVITIES':
+                    console.log("action");
+          console.log(action);
+          return  action.activities;
+    case 'ADD_ACTIVITY':
       return [
         ...state,
-        todo(undefined, action)
+        activity(undefined, action)
       ];
-    case 'TOGGLE_TODO':
+    case 'TOGGLE_ACTIVITY':
       return state.map(t =>
-        todo(t, action)
+        activity(t, action)
       );
     default:
       return state;
   }
 }
 
-// TODOの表示状態を処理するための関数
+// ACTIVITYの表示状態を処理するための関数
 const visibilityFilter = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
     case 'SET_VISIBILITY_FILTER':
@@ -55,12 +57,12 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
   }
 }
 
-const todoApp = combineReducers({
-  todos: todos,
+const activityApp = combineReducers({
+  activities: activities,
   visibilityFilter: visibilityFilter
 });
 
 
 
-export default todoApp;
+export default activityApp;
 
