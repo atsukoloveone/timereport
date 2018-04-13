@@ -6,12 +6,11 @@ const activity = (state, action) => {
   switch (action.type) {
     case 'ADD_ACTIVITY':
       return {
-        id: action.id,
-        text: action.text,
-        completed: 0
+        actionId: action.actionId,
+        name: action.name
       };
     case 'TOGGLE_ACTIVITY':
-      if (state.id !== action.id) {
+      if (state.actionId !== action.actionId) {
         return state;
       }
 

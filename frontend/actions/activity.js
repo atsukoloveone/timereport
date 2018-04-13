@@ -25,19 +25,19 @@ export function fetchPostsError() {
 }
 
 //ACTIVITYを追加する
-export const addActivity = (text) => {
+export const addActivity = (name) => {
   return {
     type: 'ADD_ACTIVITY',
-    id: nextActivityId++,
-    text
+    actionId: nextActivityId++,
+    name
   };
 }
 
 //ACTIVITYを完了する
-export const toggleActivity = (id) => {
+export const toggleActivity = (actionId) => {
   return {
     type: 'TOGGLE_ACTIVITY',
-    id
+    actionId
   };
 }
 
@@ -58,7 +58,7 @@ function getActivities() {
    };
 }
 
-function addActivityDb(text) {
+function addActivityDb(name) {
    return dispatch => {
        dispatch(fetchActivities());
        fetch('http://127.0.0.1:4000/timereport/activities/new', {
@@ -67,8 +67,7 @@ function addActivityDb(text) {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            text: text,
-            completed: 0,
+            name:name
           })
         })
          //.then(response => response.json())
@@ -86,9 +85,9 @@ export function getActivitiesIfNeeded() {
     };
 }
 
-export function addActivityIfNeeded(text) {
+export function addActivityIfNeeded(name) {
        console.log("addActivityIfNeeded");  
-       console.log(text);  
+       console.log(name);  
     return (dispatch, getState) => {
         if(getState().isFetching) {
            console.log("addActivityIfNeeded isFetching");  
@@ -96,7 +95,7 @@ export function addActivityIfNeeded(text) {
             return Promise.resolve();
         } else {
               console.log("addActivityIfNeeded Fetching");  
-            return dispatch(addActivityDb(text));
+            return dispatch(addActivityDb(name));
         }
     };
 }
