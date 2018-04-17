@@ -9,6 +9,10 @@ const activity = (state, action) => {
         actionId: action.actionId,
         name: action.name
       };
+    case 'DELETE_ACTIVITY':
+      return {
+        actionId: action.actionId
+      };          
     case 'TOGGLE_ACTIVITY':
       if (state.actionId !== action.actionId) {
         return state;
@@ -36,6 +40,8 @@ const activities = (state = [], action) => {
         ...state,
         activity(undefined, action)
       ];
+    case 'DELETE_ACTIVITY':
+        return state.filter(activity => activity.actionId !== action.actionId);          
     case 'TOGGLE_ACTIVITY':
       return state.map(t =>
         activity(t, action)

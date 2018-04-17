@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { toggleActivity } from '../actions/activity';
+import { changeActivity } from '../actions/activity';
 import ActivityList from '../components/ActivityList';
 
 

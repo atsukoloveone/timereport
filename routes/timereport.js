@@ -20,6 +20,21 @@ router.get('/activities/:id', function(req, res, next) {
 	});
 });
 
+/* DELETE users  */
+router.delete('/activities/:id', function(req, res, next) {
+        var query = "DELETE from ?? WHERE ??=?";
+        var table = ["ActionVO","actionId",req.params.actionId];
+        query = mysql.format(query,table);
+        res.locals.connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Deleted the ActionVO with actionId "+req.params.actionId});
+            }
+        });
+    });
+
+
 router.post('/activities/new', function(req, res, next) {
   res.locals.connection.query("insert into ActionVO(name) values('"+req.body.name+ "')", function (error, results, fields) {
 

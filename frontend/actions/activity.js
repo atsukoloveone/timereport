@@ -49,6 +49,15 @@ export const setVisibilityFilter = (filter) => {
   };
 };
 
+export const deleteActivity = actionId => {
+       console.log("deleteActivity");  
+       console.log(actionId);      
+  return {
+    type: 'DELETE_ACTIVITY',
+    actionId: actionId
+  }
+}
+
 function getActivities() {
    return dispatch => {
        dispatch(fetchActivities());
@@ -74,6 +83,23 @@ function addActivityDb(name) {
          //.then(data => dispatch(receiveActivities(data)));
    };
 }
+function deleteActivityDb(actionId) {
+   return dispatch => {
+       dispatch(fetchActivities());
+       fetch('http://127.0.0.1:4000/timereport/activities/:id', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id:actionId
+          })
+        })
+         //.then(response => response.json())
+         //.then(data => dispatch(receiveActivities(data)));
+   };
+}
+
 
 export function getActivitiesIfNeeded() {
     return (dispatch, getState) => {

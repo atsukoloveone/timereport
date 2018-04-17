@@ -16,7 +16,7 @@ class AddTodo extends React.Component {
           if (!input.value.trim()) {　return }
           this.props.dispatch(addTodo(input.value))
           this.props.dispatch(addTodoIfNeeded(input.value))
-          //↑ActionCreatorからActionを取得し、Storeに渡している
+          // ActionCreatorからActionを取得し、Storeに渡している
           input.value = ''
         }}>
           <input ref={node => {

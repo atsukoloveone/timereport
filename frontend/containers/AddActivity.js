@@ -8,10 +8,13 @@ import {Form, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 
 class AddActivity extends React.Component {
   render() {
+        
     let input;
     return (
       <div>
         <form onSubmit={e => {
+            console.log("AddActivity");
+    console.log(this);  
           e.preventDefault()
           if (!input.value.trim()) {　return }
           this.props.dispatch(addActivity(input.value))

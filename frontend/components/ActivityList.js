@@ -1,20 +1,33 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
+import { deleteActivity } from '../actions/activity';
+import { Button} from 'react-bootstrap';
 
 class ActivityList extends React.Component {
 state = {
     value: 1,
   };
 
-    handleChange = (event, index, value) => this.setState({value});
+    handleChange = (event, index, value) => {
+        this.setState({value})
+    
+    };
    render() {
-    console.log("ActivityList");
-    console.log(this);          
     return (
      
-    <div>        
+    <div> 
+        <form onSubmit={e => {
+    console.log("DeleteActivity");
+    console.log(this);  
+          e.preventDefault()
+          if (!this.state.value) {　return }
+          this.props.dispatch(deleteActivity(this.state.value))
+          //this.props.dispatch(addActivityIfNeeded(input.value))
+      
+        }}>
+            
         <SelectField
           floatingLabelText="Aktivitet name:"
           value={this.state.value}
@@ -27,6 +40,11 @@ state = {
 
         )}        
         </SelectField>
+        <Button
+                type="submit"
+                bsStyle="danger">Delete
+              </Button>
+        </form>
          </div>
     );
   }
@@ -41,4 +59,5 @@ ActivityList.propTypes = {
   onActivityClick: PropTypes.func.isRequired
 };
 
-export default ActivityList;
+//export default ActivityList;
+export default connect()(ActivityList);
