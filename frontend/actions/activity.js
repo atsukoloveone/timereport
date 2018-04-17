@@ -86,17 +86,10 @@ function addActivityDb(name) {
 function deleteActivityDb(actionId) {
    return dispatch => {
        dispatch(fetchActivities());
-       fetch('http://127.0.0.1:4000/timereport/activities/:id', {
+       fetch('http://127.0.0.1:4000/timereport/activities/' + actionId, {
           method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id:actionId
-          })
         })
-         //.then(response => response.json())
-         //.then(data => dispatch(receiveActivities(data)));
+
    };
 }
 
@@ -126,3 +119,17 @@ export function addActivityIfNeeded(name) {
     };
 }
 
+
+export function deleteActivityIfNeeded(actionId) {
+       console.log("deleteActivityIfNeeded");  
+       console.log(actionId);  
+    return (dispatch, getState) => {
+        if(getState().isFetching) {
+           console.log("deleteActivityIfNeeded isFetching");  
+           return Promise.resolve();
+        } else {
+              console.log("deleteActivityIfNeeded Fetching");  
+            return dispatch(deleteActivityDb(actionId));
+        }
+    };
+}

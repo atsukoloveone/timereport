@@ -23,7 +23,8 @@ router.get('/activities/:id', function(req, res, next) {
 /* DELETE users  */
 router.delete('/activities/:id', function(req, res, next) {
         var query = "DELETE from ?? WHERE ??=?";
-        var table = ["ActionVO","actionId",req.params.actionId];
+        var table = ["ActionVO","actionId",req.params.id];
+    console.log("delete",req.params.id );
         query = mysql.format(query,table);
         res.locals.connection.query(query,function(err,rows){
             if(err) {

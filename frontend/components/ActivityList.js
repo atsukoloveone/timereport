@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { deleteActivity } from '../actions/activity';
+import { deleteActivity, deleteActivityIfNeeded } from '../actions/activity';
 import { Button} from 'react-bootstrap';
 
 class ActivityList extends React.Component {
@@ -24,7 +24,7 @@ state = {
           e.preventDefault()
           if (!this.state.value) {　return }
           this.props.dispatch(deleteActivity(this.state.value))
-          //this.props.dispatch(addActivityIfNeeded(input.value))
+          this.props.dispatch(deleteActivityIfNeeded(this.state.value))
       
         }}>
             

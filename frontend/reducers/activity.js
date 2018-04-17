@@ -3,6 +3,8 @@ import { combineReducers } from 'redux';
 
 // 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
 const activity = (state, action) => {
+          console.log("reducere activity");
+          console.log(action);    
   switch (action.type) {
     case 'ADD_ACTIVITY':
       return {
@@ -28,7 +30,7 @@ const activity = (state, action) => {
 
 // 複数のACTIVITYを処理するための関数
 const activities = (state = [], action) => {
-          console.log("action");
+          console.log("reducere activities action");
           console.log(action);
   switch (action.type) {
     case 'FETCH_ACTIVITIES':
