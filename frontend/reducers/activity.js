@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 
+
 // 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
 const activity = (state, action) => {
           console.log("reducere activity");
@@ -53,6 +54,7 @@ const activities = (state = [], action) => {
   }
 }
 
+
 // ACTIVITYの表示状態を処理するための関数
 const visibilityFilter = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
@@ -63,9 +65,19 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
   }
 }
 
+function currentActionId(state = 1, action) {
+  switch (action.type) {
+    case 'CHANGE_ACTIVITY':
+      return  action.actionId;
+    default:
+      return state;
+  }
+}
+
 const activityApp = combineReducers({
   activities: activities,
-  visibilityFilter: visibilityFilter
+  visibilityFilter: visibilityFilter,
+  currentActionId: currentActionId,
 });
 
 

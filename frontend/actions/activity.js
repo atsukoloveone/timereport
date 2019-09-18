@@ -34,9 +34,9 @@ export const addActivity = (name) => {
 }
 
 //ACTIVITYを完了する
-export const toggleActivity = (actionId) => {
+export const changeActivity = (actionId) => {
   return {
-    type: 'TOGGLE_ACTIVITY',
+    type: 'CHANGE_ACTIVITY',
     actionId
   };
 }

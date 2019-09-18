@@ -21,16 +21,16 @@ const mapStateToProps = (state) => {
           console.log("mapStateToProps activities");
           console.log(state.activities);       
   return {
-    activities: getVisibleActivities(state.activityApp.activities, state.activityApp.visibilityFilter)
+    activities: getVisibleActivities(state.activityApp.activities, state.activityApp.visibilityFilter, state.activityApp.currentActionId)
   };
 };
 
 // ViewからStateにイベントを伝える
 const mapDispatchToProps = (dispatch) => {
   return {
-    onActivityClick: (id) => {
+    onActivityClick: (actionId) => {
       //ActionCreatorからActionを取得し、Storeに渡す
-      dispatch(toggleActivity(id))
+      dispatch(changeActivity(actionId))
     }
   };
 };

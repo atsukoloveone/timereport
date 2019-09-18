@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import MenuItem from 'material-ui/MenuItem';
+import React from "react";
+import PropTypes from "prop-types";
+import MenuItem from "material-ui/MenuItem";
 
 // Todoの実体は<li>~</li>
 class Activity extends React.Component {
@@ -7,11 +8,10 @@ class Activity extends React.Component {
     return (
       <MenuItem
         onClick={this.props.onClick}
-        value={this.props.id} primaryText={this.props.text}
-         >
-      </MenuItem>
+        value={this.props.id}
+        primaryText={this.props.text}
+      ></MenuItem>
     );
-    
   }
 }
 
