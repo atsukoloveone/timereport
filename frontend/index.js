@@ -12,13 +12,7 @@ import { getActivitiesIfNeeded } from "./actions/activity";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import {
-  Router,
-  Route,
-  browserHistory,
-  BrowserRouter,
-  Link
-} from "react-router-dom";
+import { Router, Route, browserHistory, BrowserRouter } from "react-router-dom";
 
 import { createHashHistory } from "history";
 import todoApp from "./reducers/index";
