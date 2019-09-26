@@ -46,6 +46,7 @@ const Sidebar = () => (
           <MenuItem
             primaryText="Klienter"
             leftIcon={<SupervisorAccountIcon />}
+            containerElement={<Link to="/Client" />}
           />
           <MenuItem
             primaryText="Projekt"

@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import thunkMiddleware from "redux-thunk";
 import { getTodosIfNeeded } from "./actions";
 import { getActivitiesIfNeeded } from "./actions/activity";
+import { getClientsIfNeeded } from "./actions/client";
 
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -17,30 +18,29 @@ import { Router, Route, browserHistory, BrowserRouter } from "react-router-dom";
 import { createHashHistory } from "history";
 import todoApp from "./reducers/index";
 import activityApp from "./reducers/activity";
+import clientApp from "./reducers/client";
 import App from "./components/App";
 import Activity from "./components/AppActivity";
+import Client from "./components/AppClient";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 
 const history = createHashHistory();
-const initialState = {
-  todos: [{ id: 123, text: "hello", completed: false }],
-  activities: [{ actionId: 123, name: "hello" }]
-};
 
 //let store = createStore(todoApp);
 
 let store = createStore(
   //todoApp,
   //activityApp,
+  //clientApp,
 
-  combineReducers({ todoApp, activityApp }),
+  combineReducers({ todoApp, activityApp, clientApp }),
   applyMiddleware(thunk, logger)
-  //initialState
 );
 
 store.dispatch(getTodosIfNeeded());
 store.dispatch(getActivitiesIfNeeded());
+store.dispatch(getClientsIfNeeded());
 
 render(
   <Provider store={store}>
@@ -57,6 +57,7 @@ render(
                 path="/activity"
                 component={Activity}
               />
+              <Route name="Client" exact path="/client" component={Client} />
             </div>
             <Footer />
           </div>
