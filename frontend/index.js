@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import thunkMiddleware from "redux-thunk";
 import { getTodosIfNeeded } from "./actions";
 import { getActivitiesIfNeeded } from "./actions/activity";
+
 import { getClientsIfNeeded } from "./actions/client";
 
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -22,24 +23,18 @@ import clientApp from "./reducers/client";
 import App from "./components/App";
 import Activity from "./components/AppActivity";
 import Client from "./components/AppClient";
-import Footer from "./components/Footer";
+
 import Sidebar from "./components/Sidebar";
 
 const history = createHashHistory();
 
-//let store = createStore(todoApp);
-
 let store = createStore(
-  //todoApp,
-  //activityApp,
-  //clientApp,
-
   combineReducers({ todoApp, activityApp, clientApp }),
   applyMiddleware(thunk, logger)
 );
 
 store.dispatch(getTodosIfNeeded());
-store.dispatch(getActivitiesIfNeeded());
+//tore.dispatch(getActivitiesIfNeeded());
 store.dispatch(getClientsIfNeeded());
 
 render(
@@ -59,7 +54,6 @@ render(
               />
               <Route name="Client" exact path="/client" component={Client} />
             </div>
-            <Footer />
           </div>
         </div>
       </Router>

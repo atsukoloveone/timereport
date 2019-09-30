@@ -4,7 +4,6 @@ import Menu from "material-ui/Menu";
 import MenuItem from "material-ui/MenuItem";
 import Drawer from "material-ui/Drawer";
 
-import PersonAdd from "material-ui/svg-icons/social/person-add";
 import Divider from "material-ui/Divider";
 import ContentCopy from "material-ui/svg-icons/content/content-copy";
 import PersonIcon from "@material-ui/icons/Person";
