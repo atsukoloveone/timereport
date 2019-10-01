@@ -29,13 +29,13 @@ import Sidebar from "./components/Sidebar";
 const history = createHashHistory();
 
 let store = createStore(
-  combineReducers({ todoApp, activityApp, clientApp }),
+  combineReducers({ activityApp, clientApp, todoApp }),
   applyMiddleware(thunk, logger)
 );
 
-store.dispatch(getTodosIfNeeded());
-//tore.dispatch(getActivitiesIfNeeded());
-store.dispatch(getClientsIfNeeded());
+//store.dispatch(getTodosIfNeeded());
+//store.dispatch(getActivitiesIfNeeded());
+//store.dispatch(getClientsIfNeeded());
 
 render(
   <Provider store={store}>

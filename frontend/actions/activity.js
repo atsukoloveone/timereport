@@ -1,5 +1,3 @@
-let nextActivityId = 10; //ACTIVITYのid管理するための変数
-
 //ACTIVITYをfetchする
 export const fetchActivities = () => {
   return {
@@ -21,15 +19,6 @@ export function fetchPostsError() {
     type: "FETCH_ERROR"
   };
 }
-
-//ACTIVITYを追加する
-export const addActivity = name => {
-  return {
-    type: "ADD_ACTIVITY",
-    actionId: nextActivityId++,
-    name
-  };
-};
 
 //ACTIVITYを完了する
 export const changeActivity = actionId => {
@@ -57,10 +46,12 @@ function getActivities() {
   };
 }
 
-function addActivityDb(name) {
+export function addActivity(name) {
+  console.log("addActivity");
+  console.log(name);
   return dispatch => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activities/new", {
+    fetch("http://127.0.0.1:4000/timereport/activities/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -70,7 +61,12 @@ function addActivityDb(name) {
       })
     })
       .then(response => response.json())
-      .then(data => dispatch(receiveActivities(data)));
+      .then(data =>
+        dispatch({
+          type: "ADD_ACTIVITY",
+          payload: { actionId: data[0].actionId, name: data[0].name }
+        })
+      );
   };
 }
 function deleteActivityDb(actionId) {
