@@ -1,7 +1,12 @@
 import { connect } from "react-redux";
-import { changeActivity } from "../actions/activity";
-import { getActivitiesIfNeeded } from "../actions/activity";
-import ActivityListView from "../components/ActivityListView";
+import {
+  changeActivity,
+  getActivitiesIfNeeded,
+  deleteActivity,
+  addActivity,
+  updateActivity
+} from "../actions/activity";
+import ActivityListView from "../components/ActivityView";
 
 // StateをViewのプロパティに落としこむ
 const mapStateToProps = state => {
@@ -15,7 +20,10 @@ const mapStateToProps = state => {
 // ViewからStateにイベントを伝える
 const mapDispatchToProps = dispatch => ({
   onActivityClick: actionId => dispatch(changeActivity(actionId)),
-  getActivitiesIfNeeded: () => dispatch(getActivitiesIfNeeded())
+  getActivitiesIfNeeded: () => dispatch(getActivitiesIfNeeded()),
+  deleteActivity: actionId => dispatch(deleteActivity(actionId)),
+  addActivity: value => dispatch(addActivity(value)),
+  updateActivity: (actionId, value) => dispatch(updateActivity(actionId, value))
 });
 
 // つなぎこみ

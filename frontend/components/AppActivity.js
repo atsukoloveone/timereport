@@ -1,7 +1,5 @@
 import React from "react";
-import SaveActivity from "../containers/SaveActivity";
-import DeleteActivity from "../containers/DeleteActivity";
-import ActivityList from "../containers/ActivityList";
+import ActivityList from "../containers/Activity";
 
 // AppはActivity追加、Activity一覧、フィルタリングメニュー（Footer）から成る
 class AppActivity extends React.Component {
@@ -9,7 +7,6 @@ class AppActivity extends React.Component {
     return (
       <div style={{ paddingLeft: 10 }}>
         <ActivityList />
-        <SaveActivity />
       </div>
     );
   }

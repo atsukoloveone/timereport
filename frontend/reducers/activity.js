@@ -17,6 +17,7 @@ const activity = (state, action) => {
 // 複数のACTIVITYを処理するための関数
 const activities = (state = [], action) => {
   console.log("reducere activities action");
+  console.log(state);
   console.log(action);
   switch (action.type) {
     case "FETCH_ACTIVITIES":
@@ -25,8 +26,22 @@ const activities = (state = [], action) => {
       return action.activities;
     case "ADD_ACTIVITY":
       return [action.payload, ...state];
+    case "UPDATE_ACTIVITY":
+      return state.map(activity => {
+        if (activity.actionId === action.payload.actionId) {
+          return action.payload;
+          /*  return {
+            ...activity,
+            actionId: action.payload.actionId,
+            name: action.payload.name
+          };
+      */
+        } else return activity;
+      });
     case "DELETE_ACTIVITY":
-      return state.filter(activity => activity.actionId !== action.actionId);
+      return state.filter(
+        activity => activity.actionId !== action.payload.actionId
+      );
     default:
       return state;
   }

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-//import { a:hover } from 'react-bootstrap';
 
 // Linkの実体は<span>~</span>もしくは<a>~</a>
 class Link extends React.Component {
