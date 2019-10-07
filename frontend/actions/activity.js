@@ -105,6 +105,8 @@ export function deleteActivity(actionId) {
 
 export function getActivitiesIfNeeded() {
   return (dispatch, getState) => {
+    console.log("getActivitiesIfNeeded");
+    console.log(getState());
     if (getState().isFetching) {
       // You don’t have to return Promises, but it’s a handy convention
       // so the caller can always call .then() on async dispatch result.

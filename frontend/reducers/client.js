@@ -57,10 +57,10 @@ const visibilityFilter = (state = "SHOW_ALL", action) => {
   }
 };
 
-function currentActionId(state = 1, action) {
+function currentCleintId(state = 1, action) {
   switch (action.type) {
     case "CHANGE_CLIENT":
-      return action.actionId;
+      return action.clientId;
     default:
       return state;
   }
@@ -69,7 +69,7 @@ function currentActionId(state = 1, action) {
 const clientApp = combineReducers({
   clients: clients,
   visibilityFilter: visibilityFilter,
-  currentActionId: currentActionId
+  currentCleintId: currentCleintId
 });
 
 export default clientApp;

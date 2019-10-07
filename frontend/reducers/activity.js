@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
 
+const initialState = {
+  activities: [],
+  isFetching: false
+};
 // 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
 const activity = (state, action) => {
   console.log("reducere activity");
@@ -15,50 +19,53 @@ const activity = (state, action) => {
 };
 
 // 複数のACTIVITYを処理するための関数
-const activities = (state = [], action) => {
+const activityApp = (state = initialState, action) => {
   console.log("reducere activities action");
   console.log(state);
   console.log(action);
   switch (action.type) {
     case "FETCH_ACTIVITIES":
-      return state;
+      return {
+        ...state,
+        isFetching: true
+      };
     case "RECEIVE_ACTIVITIES":
-      return action.activities;
+      return { activities: action.activities, isFetching: false };
     case "ADD_ACTIVITY":
-      return [action.payload, ...state];
+      return {
+        activities: [action.payload, ...state.activities],
+        isFetching: false
+      };
     case "UPDATE_ACTIVITY":
-      return state.map(activity => {
-        if (activity.actionId === action.payload.actionId) {
-          return action.payload;
-          /*  return {
+      return {
+        activities: state.activities.map(activity => {
+          if (activity.actionId === action.payload.actionId) {
+            return action.payload;
+            /*  return {
             ...activity,
             actionId: action.payload.actionId,
             name: action.payload.name
           };
       */
-        } else return activity;
-      });
+          } else return activity;
+        }),
+        isFetching: false
+      };
+
     case "DELETE_ACTIVITY":
-      return state.filter(
-        activity => activity.actionId !== action.payload.actionId
-      );
+      return {
+        activities: state.activities.filter(
+          activity => activity.actionId !== action.payload.actionId
+        ),
+        isFetching: false
+      };
     default:
       return state;
   }
 };
-
-function currentActionId(state = 1, action) {
-  switch (action.type) {
-    case "CHANGE_ACTIVITY":
-      return action.actionId;
-    default:
-      return state;
-  }
-}
-
+/*
 const activityApp = combineReducers({
-  activities: activities,
-  currentActionId: currentActionId
+  activities: activities
 });
-
+*/
 export default activityApp;

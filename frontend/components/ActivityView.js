@@ -95,7 +95,11 @@ export default class ActivityListView extends React.Component {
             </Select>
           </FormControl>
         )}
-        <Button variant="contained" onClick={this.addHandleClick}>
+        <Button
+          variant="contained"
+          onClick={this.addHandleClick}
+          className="btn btn-primary"
+        >
           Lägg till aktivitet
         </Button>
         <Button

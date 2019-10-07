@@ -23,7 +23,7 @@ const mapStateToProps = state => {
     clients: getVisibleActivities(
       state.clientApp.clients,
       state.clientApp.visibilityFilter,
-      state.clientApp.currentActionId
+      state.clientApp.currentCleintId
     )
   };
 };

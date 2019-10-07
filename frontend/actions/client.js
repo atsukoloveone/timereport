@@ -106,7 +106,6 @@ export function addActivityIfNeeded(name) {
   return (dispatch, getState) => {
     if (getState().isFetching) {
       console.log("addActivityIfNeeded isFetching");
-
       return Promise.resolve();
     } else {
       console.log("addActivityIfNeeded Fetching");
