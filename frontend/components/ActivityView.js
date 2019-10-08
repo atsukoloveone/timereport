@@ -5,8 +5,10 @@ import MenuItem from "material-ui/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+//import withStyles from "isomorphic-style-loader/withStyles";
+import s from "../index.css";
 
-export default class ActivityListView extends React.Component {
+class ActivityListView extends React.Component {
   constructor(props) {
     super(props);
     console.log("constructor");
@@ -71,34 +73,41 @@ export default class ActivityListView extends React.Component {
     return (
       <div>
         {activities && (
-          <FormControl>
-            <InputLabel shrink htmlFor="age-label-placeholder">
-              Aktivitet name:
-            </InputLabel>
-            <Select
-              value={this.state.selectedValue}
-              onChange={this.selectHandleChange}
-              displayEmpty
-            >
-              <MenuItem value="" disabled>
-                <em>select the value</em>
-              </MenuItem>
-              {activities.map(activity => (
-                <MenuItem
-                  key={activity.actionId}
-                  value={activity}
-                  name={activity.name}
-                >
-                  {activity.name}
+          <div>
+            <FormControl className={s.list_activity}>
+              <InputLabel
+                shrink
+                htmlFor="age-label-placeholder"
+                className={s.input_activity}
+              >
+                Aktivitet name:
+              </InputLabel>
+              <Select
+                value={this.state.selectedValue}
+                onChange={this.selectHandleChange}
+                className={s.input_activity}
+                displayEmpty
+              >
+                <MenuItem value="" disabled>
+                  <em>select the value</em>
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+                {activities.map(activity => (
+                  <MenuItem
+                    key={activity.actionId}
+                    value={activity}
+                    name={activity.name}
+                  >
+                    {activity.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         )}
         <Button
           variant="contained"
           onClick={this.addHandleClick}
-          className="btn btn-primary"
+          className={s.button_activity}
         >
           Lägg till aktivitet
         </Button>
@@ -106,6 +115,7 @@ export default class ActivityListView extends React.Component {
           variant="contained"
           color="secondary"
           onClick={this.deleteHandleClick}
+          className={s.button_activity}
         >
           Ta bort aktivitet
         </Button>
@@ -114,11 +124,13 @@ export default class ActivityListView extends React.Component {
           ref="saveValue"
           value={this.state.activityName}
           onChange={this.changeHandleClick}
+          className={s.input_activity}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={this.saveHandleClick}
+          className={s.button_activity}
         >
           Spara
         </Button>
@@ -139,3 +151,5 @@ ActivityListView.propTypes = {
   addActivity: PropTypes.func,
   updateActivity: PropTypes.func
 };
+
+export default ActivityListView;
