@@ -40,7 +40,6 @@
     "@material-ui/icons": "^4.4.1",
     "ajv": "^6.10.2",
     "ajv-keywords": "^3.4.1",
-    "bootstrap": "^4.3.1",
     "browserify": "^13.3.0",
     "history": "^4.7.2",
     "jquery": "^3.4.1",

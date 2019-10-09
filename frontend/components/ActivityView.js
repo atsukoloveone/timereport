@@ -5,10 +5,9 @@ import MenuItem from "material-ui/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-//import withStyles from "isomorphic-style-loader/withStyles";
 import s from "../index.css";
 
-class ActivityListView extends React.Component {
+class ActivityView extends React.Component {
   constructor(props) {
     super(props);
     console.log("constructor");
@@ -140,16 +139,16 @@ class ActivityListView extends React.Component {
 }
 
 // 制約の指定
-ActivityListView.propTypes = {
+ActivityView.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.shape({
       actionId: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired
   ),
-  onActivityClick: PropTypes.func,
+  getActivitiesIfNeeded: PropTypes.func,
   addActivity: PropTypes.func,
   updateActivity: PropTypes.func
 };
 
-export default ActivityListView;
+export default ActivityView;

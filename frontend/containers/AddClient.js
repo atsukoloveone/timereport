@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { addClient } from "../actions/client";
 import { addClientIfNeeded } from "../actions/client";
-import { Form, FormGroup, ControlLabel, Button } from "react-bootstrap";
 
 class AddClient extends React.Component {
   render() {

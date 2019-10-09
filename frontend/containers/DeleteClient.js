@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { deleteClient } from "../actions/client";
 import { deleteClientIfNeeded } from "../actions/client";
-import { Form, FormGroup, ControlLabel, Button } from "react-bootstrap";
 
 class DeleteClient extends React.Component {
   render() {

@@ -66,23 +66,6 @@ router.delete("/activities/:id", function(req, res, next) {
   });
 });
 
-router.post("/activities/new1", function(req, res, next) {
-  res.locals.connection.query(
-    "insert into ActionVO(name) values('" + req.body.name + "')",
-    function(error, results, fields) {
-      if (error) {
-        res.json({ Error: true, Message: error, req: req.body });
-      } else {
-        res.json({
-          Error: false,
-          Message: "ActionVO created !",
-          req: req.body
-        });
-      }
-    }
-  );
-});
-
 //create user, POST request
 router.post("/activities/create", function(req, res, next) {
   var query = "INSERT INTO ActionVO (??) VALUES (?)";
@@ -113,4 +96,17 @@ router.post("/activities/create", function(req, res, next) {
   });
 });
 
+/* GET users listing. */
+router.get("/clients", function(req, res, next) {
+  console.log("get", req.params);
+  res.locals.connection.query("SELECT * from ClientVO", function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+    res.send(JSON.stringify(results));
+    //res.json({"Error" : false, "Message" : results, "req" : req.body});
+  });
+});
 module.exports = router;

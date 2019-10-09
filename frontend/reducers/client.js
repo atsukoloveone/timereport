@@ -1,5 +1,10 @@
 import { combineReducers } from "redux";
 
+const initialState = {
+  clients: [],
+  isFetching: false
+};
+// 一
 // 一つ一つのCLIENTを処理するための関数（clientsから利用されます）
 const client = (state, action) => {
   console.log("reducere client");
@@ -14,44 +19,27 @@ const client = (state, action) => {
       return {
         actionId: action.actionId
       };
-    case "TOGGLE_CLIENT":
-      if (state.actionId !== action.actionId) {
-        return state;
-      }
-
-      return Object.assign({}, state, {
-        completed: !state.completed
-      });
     default:
       return state;
   }
 };
 
 // 複数のCLIENTを処理するための関数
-const clients = (state = [], action) => {
+const clientApp = (state = initialState, action) => {
   console.log("reducere clients action");
   console.log(action);
   switch (action.type) {
     case "FETCH_CLIENTS":
-      return state;
+      return {
+        ...state,
+        isFetching: true
+      };
     case "RECEIVE_CLIENTS":
-      return action.clients;
+      return { clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
       return [...state, client(undefined, action)];
     case "DELETE_CLIENT":
       return state.filter(client => client.actionId !== action.actionId);
-    case "TOGGLE_CLIENT":
-      return state.map(t => client(t, action));
-    default:
-      return state;
-  }
-};
-
-// CLIENTの表示状態を処理するための関数
-const visibilityFilter = (state = "SHOW_ALL", action) => {
-  switch (action.type) {
-    case "SET_VISIBILITY_FILTER_CLIENT":
-      return action.filter;
     default:
       return state;
   }
@@ -65,11 +53,5 @@ function currentCleintId(state = 1, action) {
       return state;
   }
 }
-
-const clientApp = combineReducers({
-  clients: clients,
-  visibilityFilter: visibilityFilter,
-  currentCleintId: currentCleintId
-});
 
 export default clientApp;

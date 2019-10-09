@@ -20,14 +20,6 @@ export function receiveActivities(activities) {
   };
 }
 
-//ACTIVITYを完了する
-export const changeActivity = actionId => {
-  return {
-    type: "CHANGE_ACTIVITY",
-    actionId
-  };
-};
-
 function getActivities() {
   return dispatch => {
     dispatch(fetchActivities());

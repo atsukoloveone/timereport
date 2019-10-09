@@ -7,9 +7,6 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 import thunkMiddleware from "redux-thunk";
 import { getTodosIfNeeded } from "./actions";
-import { getActivitiesIfNeeded } from "./actions/activity";
-
-import { getClientsIfNeeded } from "./actions/client";
 
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -34,8 +31,6 @@ let store = createStore(
 );
 
 //store.dispatch(getTodosIfNeeded());
-//store.dispatch(getActivitiesIfNeeded());
-//store.dispatch(getClientsIfNeeded());
 
 render(
   <Provider store={store}>

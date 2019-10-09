@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../actions";
 import { addTodoIfNeeded } from "../actions";
-import { Form, FormGroup, ControlLabel, Button } from "react-bootstrap";
 
 class AddTodo extends React.Component {
   render() {
