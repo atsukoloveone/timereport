@@ -148,7 +148,8 @@ ActivityView.propTypes = {
   ),
   getActivitiesIfNeeded: PropTypes.func,
   addActivity: PropTypes.func,
-  updateActivity: PropTypes.func
+  updateActivity: PropTypes.func,
+  deleteActivity: PropTypes.func
 };
 
 export default ActivityView;

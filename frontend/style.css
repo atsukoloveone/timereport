@@ -10,3 +10,19 @@
     font-size: 20px !important;
     margin-right: 10px;
  }
+
+  
+ ._index__paper {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 200;
+   z-index: 2000;
+   background-color: #FFF;
+   border: 1px solid rgba(0, 0, 0, 0.3);
+   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+   background-clip: padding-box;
+   border-radius: 5px;
+   padding: 20px;
+ }

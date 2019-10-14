@@ -10,17 +10,20 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import s from "../index.css";
+import ClientInfo from "../containers/ClientInfo";
 
 class ClientListView extends React.Component {
   constructor(props) {
     super(props);
     console.log("constructor");
-    this.state = {
-      defaultValue: {},
-      selectedValue: {},
-      activityName: ""
-    };
+    this.state = {};
   }
+
+  updateHandleClick = event => {
+    console.log("updateHandleClick");
+    this.props.updateClientInfo(1);
+  };
+
   componentDidMount() {
     this.props.getClientsIfNeeded();
   }
@@ -31,6 +34,7 @@ class ClientListView extends React.Component {
 
     return (
       <div>
+        <ClientInfo></ClientInfo>
         <Table>
           <TableHead>
             <TableRow>
@@ -53,7 +57,7 @@ class ClientListView extends React.Component {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={this.saveHandleClick}
+                      onClick={this.updateHandleClick}
                     >
                       Ändra
                     </Button>
@@ -89,7 +93,8 @@ ClientListView.propTypes = {
     })
   ),
   getClientsIfNeeded: PropTypes.func,
-  onClientClick: PropTypes.func.isRequired
+  onClientClick: PropTypes.func.isRequired,
+  updateClientInfo: PropTypes.func
 };
 
 export default ClientListView;

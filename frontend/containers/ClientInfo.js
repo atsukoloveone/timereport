@@ -1,13 +1,12 @@
 import { connect } from "react-redux";
 import { getClientsIfNeeded, updateClientInfo } from "../actions/client";
-import ClientListView from "../components/ClientListView";
+import ClientInfoView from "../components/ClientInfoView";
 
 // StateをViewのプロパティに落としこむ
 const mapStateToProps = state => {
-  console.log("mapStateToProps clientlist");
+  console.log("mapStateToProps ClientInfo");
   console.log(state.clientApp);
   return {
-    clients: state.clientApp.clients,
     modalIsOpen: state.clientApp.modalIsOpen
   };
 };
@@ -15,16 +14,17 @@ const mapStateToProps = state => {
 // ViewからStateにイベントを伝える
 const mapDispatchToProps = dispatch => {
   return {
-    getClientsIfNeeded: () => dispatch(getClientsIfNeeded()),
-    updateClientInfo: clientId =>
-      dispatch(updateClientInfo(clientId, null, null))
+    updateClientInfo: clientId => {
+      //ActionCreatorからActionを取得し、Storeに渡す
+      dispatch(updateClientInfo(clientId, modalProps, modalType));
+    }
   };
 };
 
 // つなぎこみ
-const ClientList = connect(
+const ClientInfo = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClientListView); //ViewにはReact.jsで用意したClientListを使用する
+)(ClientInfoView); //ViewにはReact.jsで用意したClientInfoを使用する
 
-export default ClientList;
+export default ClientInfo;

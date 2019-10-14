@@ -5,25 +5,23 @@ export const fetchClients = () => {
   };
 };
 
-export function receiveClients(clients) {
-  console.log("receiveClients");
-  console.log(clients);
+export const receiveClients = clients => {
   return {
     type: "RECEIVE_CLIENTS",
     clients: clients
   };
-}
+};
 
-function getClients() {
+export const getClients = () => {
   return dispatch => {
     dispatch(fetchClients());
     return fetch("http://127.0.0.1:4000/timereport/clients")
       .then(response => response.json())
       .then(data => dispatch(receiveClients(data)));
   };
-}
+};
 
-export function getClientsIfNeeded() {
+export const getClientsIfNeeded = () => {
   return (dispatch, getState) => {
     if (getState().isFetching) {
       return Promise.resolve();
@@ -31,4 +29,19 @@ export function getClientsIfNeeded() {
       return dispatch(getClients());
     }
   };
-}
+};
+
+export const updateClientInfo = (clientId, modalProps, modalType) => {
+  return {
+    type: "UPDATE_CLIENT",
+    clientId: clientId,
+    modalProps: modalProps,
+    modalType: modalType
+  };
+};
+
+export const hideModal = () => dispatch => {
+  dispatch({
+    type: "HIDE_MODAL"
+  });
+};

@@ -2,7 +2,10 @@ import { combineReducers } from "redux";
 
 const initialState = {
   clients: [],
-  isFetching: false
+  isFetching: false,
+  modalType: null,
+  modalProps: {},
+  modalIsOpen: false
 };
 // 一
 // 一つ一つのCLIENTを処理するための関数（clientsから利用されます）
@@ -35,11 +38,20 @@ const clientApp = (state = initialState, action) => {
         isFetching: true
       };
     case "RECEIVE_CLIENTS":
-      return { clients: action.clients, isFetching: false };
+      return { ...state, clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
       return [...state, client(undefined, action)];
     case "DELETE_CLIENT":
       return state.filter(client => client.actionId !== action.actionId);
+    case "UPDATE_CLIENT":
+      return {
+        ...state,
+        modalType: action.modalType,
+        modalProps: action.modalProps,
+        modalIsOpen: true
+      };
+    case "HIDE_MODAL":
+      return initialState;
     default:
       return state;
   }
