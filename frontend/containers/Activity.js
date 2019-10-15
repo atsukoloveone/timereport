@@ -9,8 +9,6 @@ import ActivityView from "../components/ActivityView";
 
 // StateをViewのプロパティに落としこむ
 const mapStateToProps = state => {
-  console.log("mapStateToProps activities");
-  console.log(state.activityApp.activities);
   return {
     activities: state.activityApp.activities
   };

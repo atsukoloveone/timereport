@@ -10,7 +10,6 @@ import s from "../index.css";
 class ActivityView extends React.Component {
   constructor(props) {
     super(props);
-    console.log("constructor");
     this.state = {
       defaultValue: {},
       selectedValue: {},
@@ -19,8 +18,6 @@ class ActivityView extends React.Component {
   }
 
   selectHandleChange = event => {
-    console.log("handleChange");
-    console.log(event.target.value);
     this.setState({ selectedValue: event.target.value });
     this.setState({ activityName: event.target.value.name });
   };
@@ -34,9 +31,6 @@ class ActivityView extends React.Component {
   };
 
   saveHandleClick = event => {
-    console.log("saveActivity");
-    console.log(this.refs.saveValue.value);
-    console.log(this.state.selectedValue);
     if (!this.state.selectedValue.actionId) {
       this.props.addActivity(this.refs.saveValue.value);
     } else {
@@ -57,9 +51,6 @@ class ActivityView extends React.Component {
     const nameValue = event.target.value;
     this.setState({ activityName: nameValue });
     this.setState({ selectedValue: this.state.selectedValue });
-    console.log("handleChange");
-    console.log(event.target.value);
-    console.log(this.state.selectedValue);
   };
 
   componentDidMount() {

@@ -6,8 +6,6 @@ const initialState = {
 };
 // 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
 const activity = (state, action) => {
-  console.log("reducere activity");
-  console.log(action);
   switch (action.type) {
     case "DELETE_ACTIVITY":
       return {
@@ -21,8 +19,6 @@ const activity = (state, action) => {
 // 複数のACTIVITYを処理するための関数
 const activityApp = (state = initialState, action) => {
   console.log("reducere activities action");
-  console.log(state);
-  console.log(action);
   switch (action.type) {
     case "FETCH_ACTIVITIES":
       return {

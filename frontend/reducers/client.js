@@ -51,7 +51,10 @@ const clientApp = (state = initialState, action) => {
         modalIsOpen: true
       };
     case "HIDE_MODAL":
-      return initialState;
+      return {
+        ...state,
+        modalIsOpen: false
+      };
     default:
       return state;
   }

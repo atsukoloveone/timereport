@@ -12,8 +12,6 @@ export function fetchPostsError() {
 }
 
 export function receiveActivities(activities) {
-  console.log("receiveActivities");
-  console.log(activities);
   return {
     type: "RECEIVE_ACTIVITIES",
     activities: activities
@@ -30,8 +28,6 @@ function getActivities() {
 }
 
 export function addActivity(name) {
-  console.log("addActivity");
-  console.log(name);
   return dispatch => {
     dispatch(fetchActivities());
     fetch("http://127.0.0.1:4000/timereport/activities/create", {
@@ -54,8 +50,6 @@ export function addActivity(name) {
 }
 
 export function updateActivity(actionId, value) {
-  console.log("updateActivity");
-  console.log(actionId + " " + value);
   return dispatch => {
     dispatch(fetchActivities());
     fetch("http://127.0.0.1:4000/timereport/activities/" + actionId, {
@@ -69,8 +63,6 @@ export function updateActivity(actionId, value) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("updateActivity data");
-        console.log(data);
         dispatch({
           type: "UPDATE_ACTIVITY",
           payload: { actionId: data[0].actionId, name: data[0].name }
@@ -97,8 +89,6 @@ export function deleteActivity(actionId) {
 
 export function getActivitiesIfNeeded() {
   return (dispatch, getState) => {
-    console.log("getActivitiesIfNeeded");
-    console.log(getState());
     if (getState().isFetching) {
       // You don’t have to return Promises, but it’s a handy convention
       // so the caller can always call .then() on async dispatch result.

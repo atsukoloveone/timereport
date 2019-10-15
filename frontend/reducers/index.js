@@ -24,8 +24,6 @@ const todo = (state, action) => {
 
 // 複数のTODOを処理するための関数
 const todos = (state = [], action) => {
-  console.log("reducer todos");
-  console.log(state);
   switch (action.type) {
     case "FETCH_TODOS":
       return state;

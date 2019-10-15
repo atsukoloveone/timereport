@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { getClientsIfNeeded, updateClientInfo } from "../actions/client";
+import {
+  getClientsIfNeeded,
+  updateClientInfo,
+  hideModal
+} from "../actions/client";
 import ClientInfoView from "../components/ClientInfoView";
 
 // StateをViewのプロパティに落としこむ
@@ -17,6 +21,9 @@ const mapDispatchToProps = dispatch => {
     updateClientInfo: clientId => {
       //ActionCreatorからActionを取得し、Storeに渡す
       dispatch(updateClientInfo(clientId, modalProps, modalType));
+    },
+    hideModal: () => {
+      dispatch(hideModal());
     }
   };
 };

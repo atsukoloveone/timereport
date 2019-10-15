@@ -1,21 +1,17 @@
 let nextTodoId = 10; //TODOのid管理するための変数
 
-
 //TODOをfetchする
 export const fetchTodos = () => {
   return {
-    type: 'FETCH_TODOS'
+    type: "FETCH_TODOS"
   };
-}
-
+};
 
 export function receiveTodos(todos) {
-    console.log("receiveTodos");
-    console.log(todos);
-    return {
-        type: 'RECEIVE_TODOS',
-        todos: todos
-    };
+  return {
+    type: "RECEIVE_TODOS",
+    todos: todos
+  };
 }
 
 export function fetchPostsError() {
@@ -25,81 +21,73 @@ export function fetchPostsError() {
 }
 
 //TODOを追加する
-export const addTodo = (text) => {
+export const addTodo = text => {
   return {
-    type: 'ADD_TODO',
+    type: "ADD_TODO",
     id: nextTodoId++,
     text
   };
-}
+};
 
 //TODOを完了する
-export const toggleTodo = (id) => {
+export const toggleTodo = id => {
   return {
-    type: 'TOGGLE_TODO',
+    type: "TOGGLE_TODO",
     id
   };
-}
+};
 
 //TODOをフィルタリングする
-export const setVisibilityFilter = (filter) => {
+export const setVisibilityFilter = filter => {
   return {
-    type: 'SET_VISIBILITY_FILTER_TODO',
+    type: "SET_VISIBILITY_FILTER_TODO",
     filter
   };
 };
 
 function getTodos() {
-   return dispatch => {
-       dispatch(fetchTodos());
-       return fetch('http://127.0.0.1:4000/todos')
-         .then(response => response.json())
-         .then(data => dispatch(receiveTodos(data)));
-   };
+  return dispatch => {
+    dispatch(fetchTodos());
+    return fetch("http://127.0.0.1:4000/todos")
+      .then(response => response.json())
+      .then(data => dispatch(receiveTodos(data)));
+  };
 }
 
 function addTodoDb(text) {
-console.log("addTodoDb"); 
-       console.log(text);      
-   return dispatch => {
-       dispatch(fetchTodos());
-       fetch('http://127.0.0.1:4000/todos/new', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text: text,
-            completed: 0,
-          })
-        })
-         //.then(response => response.json())
-         //.then(data => dispatch(receiveTodos(data)));
-   };
+  return dispatch => {
+    dispatch(fetchTodos());
+    fetch("http://127.0.0.1:4000/todos/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text: text,
+        completed: 0
+      })
+    });
+    //.then(response => response.json())
+    //.then(data => dispatch(receiveTodos(data)));
+  };
 }
 
 export function getTodosIfNeeded() {
-    return (dispatch, getState) => {
-        if(getState().isFetching) {
-            return Promise.resolve();
-        } else {
-            return dispatch(getTodos());
-        }
-    };
+  return (dispatch, getState) => {
+    if (getState().isFetching) {
+      return Promise.resolve();
+    } else {
+      return dispatch(getTodos());
+    }
+  };
 }
 
 export function addTodoIfNeeded(text) {
-       console.log("addTodoIfNeeded");  
-       console.log(text);  
-    return (dispatch, getState) => {
-        if(getState().isFetching) {
-           console.log("addTodoIfNeeded isFetching");  
-
-            return Promise.resolve();
-        } else {
-              console.log("addTodoIfNeeded Fetching");  
-            return dispatch(addTodoDb(text));
-        }
-    };
+  return (dispatch, getState) => {
+    if (getState().isFetching) {
+      return Promise.resolve();
+    } else {
+      return dispatch(addTodoDb(text));
+    }
+  };
 }
-

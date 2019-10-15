@@ -1,35 +1,32 @@
-import { connect } from 'react-redux';
-import { toggleTodo } from '../actions/index';
-import TodoList from '../components/TodoList';
+import { connect } from "react-redux";
+import { toggleTodo } from "../actions/index";
+import TodoList from "../components/TodoList";
 
 // フィルタリング状態によってTODOリストの絞り込みを行う
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
-    case 'SHOW_ALL':
+    case "SHOW_ALL":
       return todos;
-    case 'SHOW_COMPLETED':
+    case "SHOW_COMPLETED":
       return todos.filter(t => t.completed);
-    case 'SHOW_ACTIVE':
+    case "SHOW_ACTIVE":
       return todos.filter(t => !t.completed);
   }
 };
 
 // StateをViewのプロパティに落としこむ
-const mapStateToProps = (state) => {
-          console.log("mapStateToProps");
-          console.log(state);      
+const mapStateToProps = state => {
   return {
-    
     todos: getVisibleTodos(state.todoApp.todos, state.todoApp.visibilityFilter)
   };
 };
 
 // ViewからStateにイベントを伝える
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    onTodoClick: (id) => {
+    onTodoClick: id => {
       //ActionCreatorからActionを取得し、Storeに渡す
-      dispatch(toggleTodo(id))
+      dispatch(toggleTodo(id));
     }
   };
 };

@@ -40,8 +40,8 @@ export const updateClientInfo = (clientId, modalProps, modalType) => {
   };
 };
 
-export const hideModal = () => dispatch => {
-  dispatch({
+export const hideModal = () => {
+  return {
     type: "HIDE_MODAL"
-  });
+  };
 };

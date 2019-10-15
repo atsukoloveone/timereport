@@ -11,11 +11,11 @@ import Modal from "@material-ui/core/Modal";
 class ClientInfoView extends React.Component {
   constructor(props) {
     super(props);
-    console.log("constructor");
   }
 
   handleClose = () => {
-    this.setState({ modalopen: false });
+    console.log("constructor");
+    this.props.hideModal();
   };
   render() {
     const { modalIsOpen } = this.props;
@@ -40,5 +40,8 @@ class ClientInfoView extends React.Component {
     );
   }
 }
-
+// 制約の指定
+ClientInfoView.propTypes = {
+  hideModal: PropTypes.func
+};
 export default ClientInfoView;
