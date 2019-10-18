@@ -2,9 +2,8 @@ import { combineReducers } from "redux";
 
 const initialState = {
   clients: [],
+  client: {},
   isFetching: false,
-  modalType: null,
-  modalProps: {},
   modalIsOpen: false
 };
 // 一
@@ -43,12 +42,12 @@ const clientApp = (state = initialState, action) => {
       return [...state, client(undefined, action)];
     case "DELETE_CLIENT":
       return state.filter(client => client.actionId !== action.actionId);
-    case "UPDATE_CLIENT":
+    case "RECEIVE_CLIENT":
       return {
         ...state,
-        modalType: action.modalType,
-        modalProps: action.modalProps,
-        modalIsOpen: true
+        client: action.client,
+        modalIsOpen: true,
+        isFetching: false
       };
     case "HIDE_MODAL":
       return {

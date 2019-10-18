@@ -17,7 +17,7 @@ router.get("/activities", function(req, res, next) {
 });
 
 /* GET users listing. */
-router.get("/activities/:id", function(req, res, next) {
+router.get("/activity/:id", function(req, res, next) {
   res.locals.connection.query(
     "SELECT * from ActionVO where actionId = 1",
     function(error, results, fields) {
@@ -27,7 +27,7 @@ router.get("/activities/:id", function(req, res, next) {
   );
 });
 
-router.put("/activities/:id", function(req, res, next) {
+router.put("/activity/:id", function(req, res, next) {
   console.log("update", req.params);
   var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
   var table = ["ActionVO", "name", req.body.name, "actionId", req.params.id];
@@ -49,7 +49,7 @@ router.put("/activities/:id", function(req, res, next) {
 });
 
 /* DELETE users  */
-router.delete("/activities/:id", function(req, res, next) {
+router.delete("/activity/:id", function(req, res, next) {
   var query = "DELETE from ?? WHERE ??=?";
   var table = ["ActionVO", "actionId", req.params.id];
   console.log("delete", req.params.id);
@@ -67,7 +67,7 @@ router.delete("/activities/:id", function(req, res, next) {
 });
 
 //create user, POST request
-router.post("/activities/create", function(req, res, next) {
+router.post("/activity/create", function(req, res, next) {
   var query = "INSERT INTO ActionVO (??) VALUES (?)";
   var table = ["name", req.body.name];
   query = mysql.format(query, table);
@@ -107,6 +107,55 @@ router.get("/clients", function(req, res, next) {
     if (error) throw error;
     res.send(JSON.stringify(results));
     //res.json({"Error" : false, "Message" : results, "req" : req.body});
+  });
+});
+
+router.get("/client/:id", function(req, res, next) {
+  res.locals.connection.query(
+    "SELECT * from ClientVO where clientId = " + req.params.id,
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
+router.put("/client/:id", function(req, res, next) {
+  console.log("update", req.params);
+  var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+  var table = [
+    "ClientVO",
+    "companyNumber",
+    req.body.companyNumber,
+    "companyType",
+    req.body.companyType,
+    "address",
+    req.body.address,
+    "contactPerson",
+    req.body.contactPerson,
+    "email",
+    req.body.email,
+    "name",
+    req.body.name,
+    "telephone",
+    req.body.telephone,
+    "web",
+    req.params.web
+  ];
+  query = mysql.format(query, table);
+  res.locals.connection.query(query, function(error, results, fields) {
+    if (error) {
+      res.json({ Error: true, Message: error, req: req.body });
+    } else {
+      console.log("update", results);
+      res.locals.connection.query(
+        "SELECT * from ClientVO where actionId = " + req.params.id,
+        function(error, results, fields) {
+          if (error) res.json({ Error: true, Message: error, req: req.body });
+          res.json(results);
+        }
+      );
+    }
   });
 });
 module.exports = router;

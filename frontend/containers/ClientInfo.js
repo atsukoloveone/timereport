@@ -1,9 +1,5 @@
 import { connect } from "react-redux";
-import {
-  getClientsIfNeeded,
-  updateClientInfo,
-  hideModal
-} from "../actions/client";
+import { getClientInfo, updateClient, hideModal } from "../actions/client";
 import ClientInfoView from "../components/ClientInfoView";
 
 // StateをViewのプロパティに落としこむ
@@ -11,6 +7,7 @@ const mapStateToProps = state => {
   console.log("mapStateToProps ClientInfo");
   console.log(state.clientApp);
   return {
+    client: state.clientApp.client,
     modalIsOpen: state.clientApp.modalIsOpen
   };
 };
@@ -18,9 +15,10 @@ const mapStateToProps = state => {
 // ViewからStateにイベントを伝える
 const mapDispatchToProps = dispatch => {
   return {
-    updateClientInfo: clientId => {
+    getClientInfo: clientId => {
       //ActionCreatorからActionを取得し、Storeに渡す
-      dispatch(updateClientInfo(clientId, modalProps, modalType));
+      dispatch(getClientInfo(clientId));
+      dispatch(updateClient(clientId, value));
     },
     hideModal: () => {
       dispatch(hideModal());

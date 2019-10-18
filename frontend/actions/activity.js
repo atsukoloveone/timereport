@@ -1,17 +1,17 @@
 //ACTIVITYをfetchする
-export const fetchActivities = () => {
+const fetchActivities = () => {
   return {
     type: "FETCH_ACTIVITIES"
   };
 };
 
-export function fetchPostsError() {
+function fetchPostsError() {
   return {
     type: "FETCH_ERROR"
   };
 }
 
-export function receiveActivities(activities) {
+function receiveActivities(activities) {
   return {
     type: "RECEIVE_ACTIVITIES",
     activities: activities
@@ -30,7 +30,7 @@ function getActivities() {
 export function addActivity(name) {
   return dispatch => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activities/create", {
+    fetch("http://127.0.0.1:4000/timereport/activity/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -52,7 +52,7 @@ export function addActivity(name) {
 export function updateActivity(actionId, value) {
   return dispatch => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activities/" + actionId, {
+    fetch("http://127.0.0.1:4000/timereport/activity/" + actionId, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -74,7 +74,7 @@ export function updateActivity(actionId, value) {
 export function deleteActivity(actionId) {
   return dispatch => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activities/" + actionId, {
+    fetch("http://127.0.0.1:4000/timereport/activity/" + actionId, {
       method: "DELETE"
     })
       .then(response => response.json())

@@ -21,7 +21,7 @@ class ClientListView extends React.Component {
 
   updateHandleClick = event => {
     console.log("updateHandleClick");
-    this.props.updateClientInfo(1);
+    this.props.getClientInfo(14);
   };
 
   componentDidMount() {
@@ -93,8 +93,7 @@ ClientListView.propTypes = {
     })
   ),
   getClientsIfNeeded: PropTypes.func,
-  onClientClick: PropTypes.func.isRequired,
-  updateClientInfo: PropTypes.func
+  getClientInfo: PropTypes.func
 };
 
 export default ClientListView;
