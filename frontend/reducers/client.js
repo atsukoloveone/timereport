@@ -40,6 +40,15 @@ const clientApp = (state = initialState, action) => {
       return { ...state, clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
       return [...state, client(undefined, action)];
+    case "UPDATE_CLIENT":
+      return {
+        clients: state.clients.map(client => {
+          if (client.clientId === action.payload.client.clientId) {
+            return action.payload.client;
+          } else return client;
+        }),
+        isFetching: false
+      };
     case "DELETE_CLIENT":
       return state.filter(client => client.actionId !== action.actionId);
     case "RECEIVE_CLIENT":

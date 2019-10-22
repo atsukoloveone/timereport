@@ -122,34 +122,40 @@ router.get("/client/:id", function(req, res, next) {
 
 router.put("/client/:id", function(req, res, next) {
   console.log("update", req.params);
-  var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+  console.log("update", req.body.name);
+  var value = req.body.name;
+  var query =
+    "UPDATE ?? SET ?? = ?,  ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?,?? = ?, ?? = ? WHERE ?? = ?";
   var table = [
     "ClientVO",
     "companyNumber",
-    req.body.companyNumber,
+    value.companyNumber,
     "companyType",
-    req.body.companyType,
+    value.companyType,
     "address",
-    req.body.address,
+    value.address,
     "contactPerson",
-    req.body.contactPerson,
+    value.contactPerson,
     "email",
-    req.body.email,
+    value.email,
     "name",
-    req.body.name,
+    value.name,
     "telephone",
-    req.body.telephone,
+    value.telephone,
     "web",
-    req.params.web
+    value.web,
+    "clientId",
+    req.params.id
   ];
   query = mysql.format(query, table);
+  console.log("update", query);
   res.locals.connection.query(query, function(error, results, fields) {
     if (error) {
       res.json({ Error: true, Message: error, req: req.body });
     } else {
-      console.log("update", results);
+      console.log("update result", results);
       res.locals.connection.query(
-        "SELECT * from ClientVO where actionId = " + req.params.id,
+        "SELECT * from ClientVO where clientId = " + req.params.id,
         function(error, results, fields) {
           if (error) res.json({ Error: true, Message: error, req: req.body });
           res.json(results);

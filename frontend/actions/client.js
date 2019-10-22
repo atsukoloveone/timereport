@@ -62,7 +62,7 @@ export function updateClient(clientId, value) {
   console.log(clientId);
   console.log(value);
   return dispatch => {
-    dispatch(fetchActivities());
+    dispatch(fetchClients());
     fetch("http://127.0.0.1:4000/timereport/client/" + clientId, {
       method: "PUT",
       headers: {
@@ -74,10 +74,15 @@ export function updateClient(clientId, value) {
     })
       .then(response => response.json())
       .then(data => {
+        console.log("updateClient data");
+        console.log(data);
         dispatch({
           type: "UPDATE_CLIENT",
-          payload: { clientId: data[0].clientId }
+          payload: { client: data[0] }
         });
+      })
+      .catch(error => {
+        throw error;
       });
   };
 }

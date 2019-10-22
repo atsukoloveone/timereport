@@ -15,13 +15,11 @@ const mapStateToProps = state => {
 // ViewからStateにイベントを伝える
 const mapDispatchToProps = dispatch => {
   return {
-    getClientInfo: clientId => {
-      //ActionCreatorからActionを取得し、Storeに渡す
-      dispatch(getClientInfo(clientId));
-      dispatch(updateClient(clientId, value));
-    },
     hideModal: () => {
       dispatch(hideModal());
+    },
+    updateClient: (clientId, value) => {
+      dispatch(updateClient(clientId, value));
     }
   };
 };

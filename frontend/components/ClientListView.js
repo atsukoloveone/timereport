@@ -29,9 +29,9 @@ class ClientListView extends React.Component {
   }
   render() {
     const { clients } = this.props;
-    console.log("ClientListView");
+    console.log("ClientListView render");
+    console.log(this.state);
     console.log(this.props);
-
     return (
       <div>
         <ClientInfo></ClientInfo>
@@ -93,7 +93,8 @@ ClientListView.propTypes = {
     })
   ),
   getClientsIfNeeded: PropTypes.func,
-  getClientInfo: PropTypes.func
+  getClientInfo: PropTypes.func,
+  modalIsOpen: PropTypes.bool
 };
 
 export default ClientListView;

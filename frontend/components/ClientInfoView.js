@@ -57,8 +57,8 @@ class ClientInfoView extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  updateHandleClick = event => {
-    console.log("updateHandleClick");
+  saveHandleClick = event => {
+    console.log("saveHandleClick");
     console.log(this.state);
     this.props.updateClient(this.state.clientId, this.state);
   };
@@ -69,8 +69,10 @@ class ClientInfoView extends React.Component {
     console.log(this.props);
     console.log(this.state);
     let clientView = null;
-    if (client.length > 0) {
+    if (client) {
       clientView = client[0];
+      console.log("ClientInfoView clientView");
+      console.log(clientView);
     }
     return (
       <div>
@@ -86,7 +88,7 @@ class ClientInfoView extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              onClick={this.updateHandleClick}
+              onClick={this.saveHandleClick}
             >
               Spara
             </Button>
@@ -185,6 +187,8 @@ ClientInfoView.propTypes = {
       name: PropTypes.string
     })
   ),
-  hideModal: PropTypes.func
+  updateClient: PropTypes.func,
+  hideModal: PropTypes.func,
+  modalIsOpen: PropTypes.bool
 };
 export default ClientInfoView;
