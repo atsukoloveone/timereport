@@ -164,4 +164,66 @@ router.put("/client/:id", function(req, res, next) {
     }
   });
 });
+
+//create user, POST request
+router.post("/client/create", function(req, res, next) {
+  console.log("add", req.params);
+  console.log("add", req.body.name);
+  var value = req.body.name;
+  var query = "INSERT INTO ClientVO SET ?";
+  var table = {
+    companyNumber: value.companyNumber,
+    companyType: value.companyType,
+    address: value.address,
+    contactPerson: value.contactPerson,
+    email: value.email,
+    name: value.name,
+    telephone: value.telephone,
+    web: value.web
+  };
+  query = mysql.format(query, table);
+  console.log("add", query);
+  res.locals.connection.query(query, function(error, results, fields) {
+    if (error) {
+      res.json({ Error: true, Message: error, req: req.body });
+    } else {
+      var query = "SELECT LAST_INSERT_ID() ";
+      res.locals.connection.query(query, function(error, results, fields) {
+        if (error) {
+          res.json({ Error: true, Message: error, req: req.body });
+        } else {
+          console.log("create", results);
+          res.locals.connection.query(
+            "SELECT * from ActionVO where actionId = " +
+              results[0]["LAST_INSERT_ID()"],
+            function(error, results, fields) {
+              if (error)
+                res.json({ Error: true, Message: error, req: req.body });
+              res.json(results);
+            }
+          );
+        }
+      });
+    }
+  });
+});
+
+/* DELETE users  */
+router.delete("/client/:id", function(req, res, next) {
+  var query = "DELETE from ?? WHERE ??=?";
+  var table = ["ClientVO", "clientId", req.params.id];
+  console.log("delete", req.params.id);
+  query = mysql.format(query, table);
+  res.locals.connection.query(query, function(err, rows) {
+    if (err) {
+      res.json({ Error: true, Message: "Error executing MySQL query" });
+    } else {
+      res.json({
+        Error: false,
+        Message: "Deleted the ClientVO with clientId " + req.params.clientId
+      });
+    }
+  });
+});
+
 module.exports = router;

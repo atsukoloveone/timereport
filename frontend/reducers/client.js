@@ -7,29 +7,13 @@ const initialState = {
   modalIsOpen: false
 };
 // 一
-// 一つ一つのCLIENTを処理するための関数（clientsから利用されます）
-const client = (state, action) => {
-  console.log("reducere client");
-  console.log(action);
-  switch (action.type) {
-    case "ADD_CLIENT":
-      return {
-        actionId: action.actionId,
-        name: action.name
-      };
-    case "DELETE_CLIENT":
-      return {
-        actionId: action.actionId
-      };
-    default:
-      return state;
-  }
-};
 
 // 複数のCLIENTを処理するための関数
 const clientApp = (state = initialState, action) => {
   console.log("reducere clients action");
+  console.log(state);
   console.log(action);
+
   switch (action.type) {
     case "FETCH_CLIENTS":
       return {
@@ -39,7 +23,10 @@ const clientApp = (state = initialState, action) => {
     case "RECEIVE_CLIENTS":
       return { ...state, clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
-      return [...state, client(undefined, action)];
+      return {
+        activities: [action.payload, ...state.clients],
+        isFetching: false
+      };
     case "UPDATE_CLIENT":
       return {
         clients: state.clients.map(client => {
@@ -50,13 +37,24 @@ const clientApp = (state = initialState, action) => {
         isFetching: false
       };
     case "DELETE_CLIENT":
-      return state.filter(client => client.actionId !== action.actionId);
+      return {
+        clients: state.clients.filter(
+          client => client.clientId !== action.payload.clientId
+        ),
+        isFetching: false
+      };
     case "RECEIVE_CLIENT":
       return {
         ...state,
         client: action.client,
         modalIsOpen: true,
         isFetching: false
+      };
+    case "NEW_CLIENT":
+      return {
+        ...state,
+        client: {},
+        modalIsOpen: true
       };
     case "HIDE_MODAL":
       return {
@@ -67,14 +65,5 @@ const clientApp = (state = initialState, action) => {
       return state;
   }
 };
-
-function currentCleintId(state = 1, action) {
-  switch (action.type) {
-    case "CHANGE_CLIENT":
-      return action.clientId;
-    default:
-      return state;
-  }
-}
 
 export default clientApp;

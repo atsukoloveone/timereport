@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
-import { getClientsIfNeeded, getClientInfo } from "../actions/client";
+import {
+  getClientsIfNeeded,
+  getClientInfo,
+  deleteClient,
+  newClient
+} from "../actions/client";
 import ClientListView from "../components/ClientListView";
 
 // StateをViewのプロパティに落としこむ
@@ -16,7 +21,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getClientsIfNeeded: () => dispatch(getClientsIfNeeded()),
-    getClientInfo: clientId => dispatch(getClientInfo(clientId))
+    getClientInfo: clientId => dispatch(getClientInfo(clientId)),
+    deleteClient: clientId => dispatch(deleteClient(clientId)),
+    newClient: () => dispatch(newClient())
   };
 };
 

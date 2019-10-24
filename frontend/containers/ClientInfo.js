@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
-import { getClientInfo, updateClient, hideModal } from "../actions/client";
+import {
+  updateClient,
+  addClient,
+  deleteClient,
+  hideModal
+} from "../actions/client";
 import ClientInfoView from "../components/ClientInfoView";
 
 // StateをViewのプロパティに落としこむ
@@ -18,8 +23,14 @@ const mapDispatchToProps = dispatch => {
     hideModal: () => {
       dispatch(hideModal());
     },
+    addClient: value => {
+      dispatch(addClient(value));
+    },
     updateClient: (clientId, value) => {
       dispatch(updateClient(clientId, value));
+    },
+    deleteClient: clientId => {
+      dispatch(deleteClient(clientId));
     }
   };
 };

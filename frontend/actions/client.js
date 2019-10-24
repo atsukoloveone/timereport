@@ -57,6 +57,58 @@ export const getClientInfo = clientId => {
   };
 };
 
+export const newClient = () => {
+  return {
+    type: "NEW_CLIENT"
+  };
+};
+
+export function deleteClient(clientId) {
+  return dispatch => {
+    dispatch(fetchClients());
+    fetch("http://127.0.0.1:4000/timereport/client/" + clientId, {
+      method: "DELETE"
+    })
+      .then(response => response.json())
+      .then(data =>
+        dispatch({
+          type: "DELETE_CLIENT",
+          payload: { clientId: clientId }
+        })
+      )
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function addClient(value) {
+  return dispatch => {
+    dispatch(fetchClients());
+    fetch("http://127.0.0.1:4000/timereport/client/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: value
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("addClient data");
+        console.log(data);
+        dispatch({
+          type: "ADD_CLIENT",
+          payload: { client: data[0] }
+        });
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
 export function updateClient(clientId, value) {
   console.log("updateClient");
   console.log(clientId);

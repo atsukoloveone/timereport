@@ -26,3 +26,7 @@
    border-radius: 5px;
    padding: 20px;
  }
+
+ ._index__button_cancel{
+   background-color: #FF0 !important;
+}

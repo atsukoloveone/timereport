@@ -19,6 +19,7 @@ const activity = (state, action) => {
 // 複数のACTIVITYを処理するための関数
 const activityApp = (state = initialState, action) => {
   console.log("reducere activities action");
+  console.log(state);
   switch (action.type) {
     case "FETCH_ACTIVITIES":
       return {
