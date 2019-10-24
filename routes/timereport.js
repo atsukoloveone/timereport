@@ -194,7 +194,7 @@ router.post("/client/create", function(req, res, next) {
         } else {
           console.log("create", results);
           res.locals.connection.query(
-            "SELECT * from ActionVO where actionId = " +
+            "SELECT * from ClientVO where clientId = " +
               results[0]["LAST_INSERT_ID()"],
             function(error, results, fields) {
               if (error)

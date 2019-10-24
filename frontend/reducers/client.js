@@ -24,7 +24,7 @@ const clientApp = (state = initialState, action) => {
       return { ...state, clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
       return {
-        activities: [action.payload, ...state.clients],
+        clients: [action.payload.client, ...state.clients],
         isFetching: false
       };
     case "UPDATE_CLIENT":
