@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 
 import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -25,10 +25,15 @@ import Sidebar from "./components/Sidebar";
 
 const history = createHashHistory();
 
+/* eslint-disable no-underscore-dangle */
 let store = createStore(
   combineReducers({ activityApp, clientApp, todoApp }),
-  applyMiddleware(thunk, logger)
+  compose(
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
+/* eslint-enable */
 
 //store.dispatch(getTodosIfNeeded());
 
