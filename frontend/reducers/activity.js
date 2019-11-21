@@ -1,20 +1,8 @@
-import { combineReducers } from "redux";
-
 const initialState = {
   activities: [],
-  isFetching: false
+  isFetching: false,
 };
 // 一つ一つのACTIVITYを処理するための関数（activitiesから利用されます）
-const activity = (state, action) => {
-  switch (action.type) {
-    case "DELETE_ACTIVITY":
-      return {
-        actionId: action.actionId
-      };
-    default:
-      return state;
-  }
-};
 
 // 複数のACTIVITYを処理するための関数
 const activityApp = (state = initialState, action) => {
@@ -24,18 +12,18 @@ const activityApp = (state = initialState, action) => {
     case "FETCH_ACTIVITIES":
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case "RECEIVE_ACTIVITIES":
       return { activities: action.activities, isFetching: false };
     case "ADD_ACTIVITY":
       return {
         activities: [action.payload, ...state.activities],
-        isFetching: false
+        isFetching: false,
       };
     case "UPDATE_ACTIVITY":
       return {
-        activities: state.activities.map(activity => {
+        activities: state.activities.map((activity) => {
           if (activity.actionId === action.payload.actionId) {
             return action.payload;
             /*  return {
@@ -44,17 +32,18 @@ const activityApp = (state = initialState, action) => {
             name: action.payload.name
           };
       */
-          } else return activity;
+          }
+          return activity;
         }),
-        isFetching: false
+        isFetching: false,
       };
 
     case "DELETE_ACTIVITY":
       return {
         activities: state.activities.filter(
-          activity => activity.actionId !== action.payload.actionId
+          (activity) => activity.actionId !== action.payload.actionId,
         ),
-        isFetching: false
+        isFetching: false,
       };
     default:
       return state;

@@ -1,145 +1,125 @@
-//CLIENTをfetchする
-const fetchClients = () => {
-  return {
-    type: "FETCH_CLIENTS"
-  };
+// CLIENTをfetchする
+const fetchClients = () => ({
+  type: "FETCH_CLIENTS",
+});
+
+const receiveClients = (clients) => ({
+  type: "RECEIVE_CLIENTS",
+  clients,
+});
+
+const receiveClient = (client) => ({
+  type: "RECEIVE_CLIENT",
+  client,
+});
+
+const getClients = () => (dispatch) => {
+  dispatch(fetchClients());
+  return fetch("http://127.0.0.1:4000/timereport/clients")
+    .then((response) => response.json())
+    .then((data) => dispatch(receiveClients(data)));
 };
 
-const receiveClients = clients => {
-  return {
-    type: "RECEIVE_CLIENTS",
-    clients: clients
-  };
+export const getClientsIfNeeded = () => (dispatch, getState) => {
+  if (getState().isFetching) {
+    return Promise.resolve();
+  }
+  return dispatch(getClients());
 };
 
-const receiveClient = client => {
-  return {
-    type: "RECEIVE_CLIENT",
-    client: client
-  };
+const getClient = (clientId) => (dispatch) => {
+  dispatch(fetchClients());
+  return fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`)
+    .then((response) => response.json())
+    .then((data) => dispatch(receiveClient(data)));
 };
 
-const getClients = () => {
-  return dispatch => {
-    dispatch(fetchClients());
-    return fetch("http://127.0.0.1:4000/timereport/clients")
-      .then(response => response.json())
-      .then(data => dispatch(receiveClients(data)));
-  };
+export const getClientInfo = (clientId) => (dispatch, getState) => {
+  if (getState().isFetching) {
+    return Promise.resolve();
+  }
+  return dispatch(getClient(clientId));
 };
 
-export const getClientsIfNeeded = () => {
-  return (dispatch, getState) => {
-    if (getState().isFetching) {
-      return Promise.resolve();
-    } else {
-      return dispatch(getClients());
-    }
-  };
-};
-
-const getClient = clientId => {
-  return dispatch => {
-    dispatch(fetchClients());
-    return fetch("http://127.0.0.1:4000/timereport/client/" + clientId)
-      .then(response => response.json())
-      .then(data => dispatch(receiveClient(data)));
-  };
-};
-
-export const getClientInfo = clientId => {
-  return (dispatch, getState) => {
-    if (getState().isFetching) {
-      return Promise.resolve();
-    } else {
-      return dispatch(getClient(clientId));
-    }
-  };
-};
-
-export const newClient = () => {
-  return {
-    type: "NEW_CLIENT"
-  };
-};
+export const newClient = () => ({
+  type: "NEW_CLIENT",
+});
 
 export function deleteClient(clientId) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchClients());
-    fetch("http://127.0.0.1:4000/timereport/client/" + clientId, {
-      method: "DELETE"
+    fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`, {
+      method: "DELETE",
     })
-      .then(response => response.json())
-      .then(data =>
+      .then((response) => response.json())
+      .then(() => {
         dispatch({
           type: "DELETE_CLIENT",
-          payload: { clientId: clientId }
-        })
-      )
-      .catch(error => {
+          payload: { clientId },
+        });
+      })
+      .catch((error) => {
         throw error;
       });
   };
 }
 
 export function addClient(value) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchClients());
     fetch("http://127.0.0.1:4000/timereport/client/create", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: value
-      })
+        name: value,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log("addClient data");
-        console.log(data);
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("addClient data");
+        // console.log(data);
         dispatch({
           type: "ADD_CLIENT",
-          payload: { client: data[0] }
+          payload: { client: data[0] },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
   };
 }
 
 export function updateClient(clientId, value) {
-  console.log("updateClient");
-  console.log(clientId);
-  console.log(value);
-  return dispatch => {
+  // console.log("updateClient");
+  // console.log(clientId);
+  // console.log(value);
+  return (dispatch) => {
     dispatch(fetchClients());
-    fetch("http://127.0.0.1:4000/timereport/client/" + clientId, {
+    fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: value
-      })
+        name: value,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log("updateClient data");
-        console.log(data);
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("updateClient data");
+        // console.log(data);
         dispatch({
           type: "UPDATE_CLIENT",
-          payload: { client: data[0] }
+          payload: { client: data[0] },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
   };
 }
-export const hideModal = () => {
-  return {
-    type: "HIDE_MODAL"
-  };
-};
+export const hideModal = () => ({
+  type: "HIDE_MODAL",
+});

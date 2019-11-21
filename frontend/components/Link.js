@@ -11,7 +11,7 @@ class Link extends React.Component {
     return (
       <a
         href="#"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           this.props.onClick();
         }}
@@ -26,7 +26,7 @@ class Link extends React.Component {
 Link.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Link;

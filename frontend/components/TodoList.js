@@ -8,7 +8,7 @@ class TodoList extends React.Component {
   render() {
     return (
       <ul>
-        {this.props.todos.map(todo => (
+        {this.props.todos.map((todo) => (
           <Todo
             key={todo.id}
             {...todo}
@@ -26,10 +26,10 @@ TodoList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       completed: PropTypes.bool.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
+      text: PropTypes.string.isRequired,
+    }).isRequired,
   ).isRequired,
-  onTodoClick: PropTypes.func.isRequired
+  onTodoClick: PropTypes.func.isRequired,
 };
 
 export default TodoList;

@@ -3,42 +3,40 @@ import {
   updateClient,
   addClient,
   deleteClient,
-  hideModal
+  hideModal,
 } from "../actions/client";
 import ClientInfoView from "../components/ClientInfoView";
 
 // StateをViewのプロパティに落としこむ
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log("mapStateToProps ClientInfo");
   console.log(state.clientApp);
   return {
     client: state.clientApp.client,
-    modalIsOpen: state.clientApp.modalIsOpen
+    modalIsOpen: state.clientApp.modalIsOpen,
   };
 };
 
 // ViewからStateにイベントを伝える
-const mapDispatchToProps = dispatch => {
-  return {
-    hideModal: () => {
-      dispatch(hideModal());
-    },
-    addClient: value => {
-      dispatch(addClient(value));
-    },
-    updateClient: (clientId, value) => {
-      dispatch(updateClient(clientId, value));
-    },
-    deleteClient: clientId => {
-      dispatch(deleteClient(clientId));
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  hideModal: () => {
+    dispatch(hideModal());
+  },
+  addClient: (value) => {
+    dispatch(addClient(value));
+  },
+  updateClient: (clientId, value) => {
+    dispatch(updateClient(clientId, value));
+  },
+  deleteClient: (clientId) => {
+    dispatch(deleteClient(clientId));
+  },
+});
 
 // つなぎこみ
 const ClientInfo = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(ClientInfoView); //ViewにはReact.jsで用意したClientInfoを使用する
+  mapDispatchToProps,
+)(ClientInfoView); // ViewにはReact.jsで用意したClientInfoを使用する
 
 export default ClientInfo;

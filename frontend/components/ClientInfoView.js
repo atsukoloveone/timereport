@@ -1,24 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import s from "../index.css";
 import Modal from "@material-ui/core/Modal";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import s from "../index.css";
 
 class ClientInfoView extends React.Component {
-  state = {
-    clientId: null,
-    companyNumber: null,
-    companyType: null,
-    address: null,
-    contactPerson: null,
-    email: null,
-    name: null,
-    telephone: null,
-    web: null
-  };
-
   static getDerivedStateFromProps(props, state) {
     console.log("getDerivedStateFromProps start");
     console.log(props);
@@ -39,7 +27,7 @@ class ClientInfoView extends React.Component {
         email: props.client[0].email,
         name: props.client[0].name,
         telephone: props.client[0].telephone,
-        web: props.client[0].web
+        web: props.client[0].web,
       };
     }
     if (state.clientId && Object.keys(props.client).length === 0) {
@@ -55,7 +43,7 @@ class ClientInfoView extends React.Component {
         email: null,
         name: null,
         telephone: null,
-        web: null
+        web: null,
       };
     }
     console.log("getDerivedStateFromProps is null");
@@ -69,19 +57,19 @@ class ClientInfoView extends React.Component {
     this.props.hideModal();
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     console.log("handleChange");
     console.log([name]);
     console.log(event.target.value);
     this.setState({ [name]: event.target.value });
   };
 
-  saveHandleClick = event => {
+  saveHandleClick = () => {
     console.log("saveHandleClick");
     console.log(this.state);
-    if (this.state.clientId)
+    if (this.state.clientId) {
       this.props.updateClient(this.state.clientId, this.state);
-    else this.props.addClient(this.state);
+    } else this.props.addClient(this.state);
   };
 
   render() {
@@ -100,7 +88,7 @@ class ClientInfoView extends React.Component {
         >
           <div className={s.paper}>
             <h2 id="simple-modal-title">Klienten information</h2>
-            <p id="simple-modal-description"></p>
+            <p id="simple-modal-description" />
             <Button
               variant="contained"
               color="primary"
@@ -206,12 +194,16 @@ ClientInfoView.propTypes = {
       companyNumber: PropTypes.string,
       companyType: PropTypes.string,
       address: PropTypes.string,
-      name: PropTypes.string
-    })
-  ),
-  updateClient: PropTypes.func,
-  addClient: PropTypes.func,
-  hideModal: PropTypes.func,
-  modalIsOpen: PropTypes.bool
+      name: PropTypes.string,
+      contactPerson: PropTypes.string,
+      email: PropTypes.string,
+      telephone: PropTypes.string,
+      web: PropTypes.string,
+    }),
+  ).isRequired,
+  updateClient: PropTypes.func.isRequired,
+  addClient: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
+  modalIsOpen: PropTypes.bool.isRequired,
 };
 export default ClientInfoView;

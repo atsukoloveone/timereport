@@ -1,10 +1,11 @@
-var express = require("express");
-var app = express();
+const express = require("express");
+
+const app = express();
 app.use(express.static(__dirname));
 
 console.log(__dirname);
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
   res.render("index.js");
 });
 

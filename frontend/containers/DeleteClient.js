@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteClient } from "../actions/client";
-import { deleteClientIfNeeded } from "../actions/client";
+import { deleteClient, deleteClientIfNeeded } from "../actions/client";
+
 
 class DeleteClient extends React.Component {
   render() {
@@ -9,14 +9,14 @@ class DeleteClient extends React.Component {
     return (
       <div>
         <form
-          onSubmit={e => {
+          onSubmit={(e) => {
             console.log(this.context.redux);
             e.preventDefault();
             if (!this.context.redux.getState().value.trim()) {
               return;
             }
             this.props.dispatch(
-              deleteClient(this.context.redux.getState().value)
+              deleteClient(this.context.redux.getState().value),
             );
             // ActionCreatorからActionを取得し、Storeに渡している
           }}

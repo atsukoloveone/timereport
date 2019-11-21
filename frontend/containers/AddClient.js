@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addClient } from "../actions/client";
-import { addClientIfNeeded } from "../actions/client";
+import { addClient, addClientIfNeeded } from "../actions/client";
+
 
 class AddClient extends React.Component {
   render() {
@@ -9,14 +9,14 @@ class AddClient extends React.Component {
     return (
       <div>
         <form
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             if (!input.value.trim()) {
               return;
             }
             this.props.dispatch(addClient(input.value));
             this.props.dispatch(addClientIfNeeded(input.value));
-            //↑ActionCreatorからActionを取得し、Storeに渡している
+            // ↑ActionCreatorからActionを取得し、Storeに渡している
             input.value = "";
           }}
         >

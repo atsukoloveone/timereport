@@ -1,89 +1,87 @@
-//ACTIVITYをfetchする
-const fetchActivities = () => {
-  return {
-    type: "FETCH_ACTIVITIES"
-  };
-};
+// ACTIVITYをfetchする
+const fetchActivities = () => ({
+  type: "FETCH_ACTIVITIES",
+});
 
 function fetchPostsError() {
   return {
-    type: "FETCH_ERROR"
+    type: "FETCH_ERROR",
   };
 }
 
 function receiveActivities(activities) {
   return {
     type: "RECEIVE_ACTIVITIES",
-    activities: activities
+    activities,
   };
 }
 
 function getActivities() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchActivities());
     return fetch("http://127.0.0.1:4000/timereport/activities")
-      .then(response => response.json())
-      .then(data => dispatch(receiveActivities(data)));
+      .then((response) => response.json())
+      .then((data) => dispatch(receiveActivities(data)));
   };
 }
 
 export function addActivity(name) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchActivities());
     fetch("http://127.0.0.1:4000/timereport/activity/create", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name
-      })
+        name,
+      }),
     })
-      .then(response => response.json())
-      .then(data =>
+      .then((response) => response.json())
+      .then((data) => {
         dispatch({
           type: "ADD_ACTIVITY",
-          payload: { actionId: data[0].actionId, name: data[0].name }
-        })
-      );
+          payload: { actionId: data[0].actionId, name: data[0].name },
+        });
+      });
   };
 }
 
 export function updateActivity(actionId, value) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activity/" + actionId, {
+    fetch(`http://127.0.0.1:4000/timereport/activity/${actionId}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: value
-      })
+        name: value,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         dispatch({
           type: "UPDATE_ACTIVITY",
-          payload: { actionId: data[0].actionId, name: data[0].name }
+          payload: { actionId: data[0].actionId, name: data[0].name },
         });
       });
   };
 }
 
 export function deleteActivity(actionId) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activity/" + actionId, {
-      method: "DELETE"
+    fetch(`http://127.0.0.1:4000/timereport/activity/${actionId}`, {
+      method: "DELETE",
     })
-      .then(response => response.json())
-      .then(data =>
+      .then((response) => response.json())
+      .then(() => {
         dispatch({
           type: "DELETE_ACTIVITY",
-          payload: { actionId: actionId }
-        })
-      );
+          payload: { actionId },
+        });
+      });
   };
 }
 
@@ -93,8 +91,7 @@ export function getActivitiesIfNeeded() {
       // You don’t have to return Promises, but it’s a handy convention
       // so the caller can always call .then() on async dispatch result.
       return Promise.resolve();
-    } else {
-      return dispatch(getActivities());
     }
+    return dispatch(getActivities());
   };
 }

@@ -10,19 +10,34 @@ import s from "../index.css";
 class ActivityView extends React.Component {
   constructor(props) {
     super(props);
+    this.saveValue = React.createRef();
     this.state = {
-      defaultValue: {},
       selectedValue: {},
-      activityName: ""
+      activityName: "",
     };
   }
 
-  selectHandleChange = event => {
+  componentDidMount() {
+    this.props.getActivitiesIfNeeded();
+  }
+
+  addHandleClick = () => {
+    this.setState({ selectedValue: [] });
+    this.setState({ activityName: "" });
+  };
+
+  changeHandleClick = (event) => {
+    const nameValue = event.target.value;
+    this.setState({ activityName: nameValue });
+    // this.setState({ selectedValue: this.state.selectedValue });
+  };
+
+  selectHandleChange = (event) => {
     this.setState({ selectedValue: event.target.value });
     this.setState({ activityName: event.target.value.name });
   };
 
-  deleteHandleClick = event => {
+  deleteHandleClick = () => {
     if (!this.state.selectedValue) {
       return;
     }
@@ -30,32 +45,17 @@ class ActivityView extends React.Component {
     this.setState({ activityName: "" });
   };
 
-  saveHandleClick = event => {
+  saveHandleClick = () => {
     if (!this.state.selectedValue.actionId) {
-      this.props.addActivity(this.refs.saveValue.value);
+      this.props.addActivity(this.saveValue.value);
     } else {
       this.props.updateActivity(
         this.state.selectedValue.actionId,
-        this.refs.saveValue.value
+        this.saveValue.value,
       );
     }
-    this.setState({ selectedValue: this.state.selectedValue });
+    // this.setState({ selectedValue: this.state.selectedValue });
   };
-
-  addHandleClick = event => {
-    this.setState({ selectedValue: [] });
-    this.setState({ activityName: "" });
-  };
-
-  changeHandleClick = event => {
-    const nameValue = event.target.value;
-    this.setState({ activityName: nameValue });
-    this.setState({ selectedValue: this.state.selectedValue });
-  };
-
-  componentDidMount() {
-    this.props.getActivitiesIfNeeded();
-  }
 
   render() {
     const { activities } = this.props;
@@ -81,7 +81,7 @@ class ActivityView extends React.Component {
                 <MenuItem value="" disabled>
                   <em>select the value</em>
                 </MenuItem>
-                {activities.map(activity => (
+                {activities.map((activity) => (
                   <MenuItem
                     key={activity.actionId}
                     value={activity}
@@ -111,7 +111,7 @@ class ActivityView extends React.Component {
         </Button>
 
         <input
-          ref="saveValue"
+          ref={this.saveValue}
           value={this.state.activityName}
           onChange={this.changeHandleClick}
           className={s.input_activity}
@@ -134,13 +134,13 @@ ActivityView.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.shape({
       actionId: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired
-  ),
-  getActivitiesIfNeeded: PropTypes.func,
-  addActivity: PropTypes.func,
-  updateActivity: PropTypes.func,
-  deleteActivity: PropTypes.func
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  getActivitiesIfNeeded: PropTypes.func.isRequired,
+  addActivity: PropTypes.func.isRequired,
+  updateActivity: PropTypes.func.isRequired,
+  deleteActivity: PropTypes.func.isRequired,
 };
 
 export default ActivityView;

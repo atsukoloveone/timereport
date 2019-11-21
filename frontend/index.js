@@ -1,19 +1,23 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import {
+  createStore, applyMiddleware, combineReducers, compose,
+} from "redux";
 
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import thunkMiddleware from "redux-thunk";
-import { getTodosIfNeeded } from "./actions";
 
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import { Router, Route, browserHistory, BrowserRouter } from "react-router-dom";
+import {
+  Router, Route, browserHistory, BrowserRouter,
+} from "react-router-dom";
 
 import { createHashHistory } from "history";
+import { getTodosIfNeeded } from "./actions";
 import todoApp from "./reducers/index";
 import activityApp from "./reducers/activity";
 import clientApp from "./reducers/client";
@@ -26,16 +30,16 @@ import Sidebar from "./components/Sidebar";
 const history = createHashHistory();
 
 /* eslint-disable no-underscore-dangle */
-let store = createStore(
+const store = createStore(
   combineReducers({ activityApp, clientApp, todoApp }),
   compose(
     applyMiddleware(thunk, logger),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  ),
 );
 /* eslint-enable */
 
-//store.dispatch(getTodosIfNeeded());
+// store.dispatch(getTodosIfNeeded());
 
 render(
   <Provider store={store}>
@@ -59,5 +63,5 @@ render(
       </Router>
     </MuiThemeProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

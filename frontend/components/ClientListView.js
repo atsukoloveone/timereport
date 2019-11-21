@@ -1,67 +1,65 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
 import Button from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import s from "../index.css";
-import ClientInfo from "../containers/ClientInfo";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import ClientInfo from "../containers/ClientInfo";
 
 class ClientListView extends React.Component {
   constructor(props) {
     super(props);
-    console.log("constructor");
+    // console.log("constructor");
     this.state = { alertOpen: false, clientId: null };
   }
 
+  componentDidMount() {
+    this.props.getClientsIfNeeded();
+  }
+
   addHandleClick = () => {
-    console.log("addHandleClick");
+    // console.log("addHandleClick");
     this.props.newClient();
   };
 
-  updateHandleClick = id => {
-    console.log("updateHandleClick");
-    console.log(id);
+  updateHandleClick = (id) => {
+    // console.log("updateHandleClick");
+    // console.log(id);
     this.props.getClientInfo(id);
   };
 
-  deleteHandleClick = id => {
-    console.log("deleteHandleClick");
+  deleteHandleClick = (id) => {
+    // console.log("deleteHandleClick");
     this.setState({ alertOpen: true });
     this.setState({ clientId: id });
   };
 
   deleteExec = () => {
-    console.log("deleteExec");
-    console.log(this.state);
+    // console.log("deleteExec");
+    // console.log(this.state);
     this.props.deleteClient(this.state.clientId);
     this.setState({ alertOpen: false });
   };
 
   handleClose = () => {
-    console.log("handleClose");
+    // console.log("handleClose");
     this.setState({ alertOpen: false });
   };
 
-  componentDidMount() {
-    this.props.getClientsIfNeeded();
-  }
   render() {
     const { clients } = this.props;
-    console.log("ClientListView render");
-    console.log(this.state);
-    console.log(this.props);
+    // console.log("ClientListView render");
+    // console.log(this.state);
+    // console.log(this.props);
     return (
       <div>
-        <ClientInfo></ClientInfo>
+        <ClientInfo />
         <Dialog
           open={this.state.alertOpen}
           onClose={this.handleClose}
@@ -100,12 +98,12 @@ class ClientListView extends React.Component {
           </TableHead>
           <TableBody>
             {clients &&
-              clients.map(client => (
+              clients.map((client) => (
                 <TableRow key={client.clientId}>
                   <TableCell component="th" scope="row">
                     {client.name}
                   </TableCell>
-                  <TableCell> {client.contactPerson}</TableCell>
+                  <TableCell>{client.contactPerson}</TableCell>
                   <TableCell>
                     {" "}
                     <Button
@@ -114,7 +112,7 @@ class ClientListView extends React.Component {
                       onClick={() => this.updateHandleClick(client.clientId)}
                     >
                       Ändra
-                    </Button>{" "}
+                    </Button>
                     {/*
                     <Button
                       variant="contained"
@@ -152,14 +150,17 @@ ClientListView.propTypes = {
       companyNumber: PropTypes.string,
       companyType: PropTypes.string,
       address: PropTypes.string,
-      name: PropTypes.string
-    })
-  ),
-  getClientsIfNeeded: PropTypes.func,
-  getClientInfo: PropTypes.func,
-  newClient: PropTypes.func,
-  deleteClient: PropTypes.func,
-  modalIsOpen: PropTypes.bool
+      name: PropTypes.string,
+      contactPerson: PropTypes.string,
+      email: PropTypes.string,
+      telephone: PropTypes.string,
+      web: PropTypes.string,
+    }),
+  ).isRequired,
+  getClientsIfNeeded: PropTypes.func.isRequired,
+  getClientInfo: PropTypes.func.isRequired,
+  newClient: PropTypes.func.isRequired,
+  deleteClient: PropTypes.func.isRequired,
 };
 
 export default ClientListView;

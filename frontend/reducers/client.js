@@ -1,10 +1,8 @@
-import { combineReducers } from "redux";
-
 const initialState = {
   clients: [],
   client: {},
   isFetching: false,
-  modalIsOpen: false
+  modalIsOpen: false,
 };
 // 一
 
@@ -18,48 +16,49 @@ const clientApp = (state = initialState, action) => {
     case "FETCH_CLIENTS":
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case "RECEIVE_CLIENTS":
       return { ...state, clients: action.clients, isFetching: false };
     case "ADD_CLIENT":
       return {
         clients: [action.payload.client, ...state.clients],
-        isFetching: false
+        isFetching: false,
       };
     case "UPDATE_CLIENT":
       return {
-        clients: state.clients.map(client => {
+        clients: state.clients.map((client) => {
           if (client.clientId === action.payload.client.clientId) {
             return action.payload.client;
-          } else return client;
+          }
+          return client;
         }),
-        isFetching: false
+        isFetching: false,
       };
     case "DELETE_CLIENT":
       return {
         clients: state.clients.filter(
-          client => client.clientId !== action.payload.clientId
+          (client) => client.clientId !== action.payload.clientId,
         ),
-        isFetching: false
+        isFetching: false,
       };
     case "RECEIVE_CLIENT":
       return {
         ...state,
         client: action.client,
         modalIsOpen: true,
-        isFetching: false
+        isFetching: false,
       };
     case "NEW_CLIENT":
       return {
         ...state,
         client: {},
-        modalIsOpen: true
+        modalIsOpen: true,
       };
     case "HIDE_MODAL":
       return {
         ...state,
-        modalIsOpen: false
+        modalIsOpen: false,
       };
     default:
       return state;

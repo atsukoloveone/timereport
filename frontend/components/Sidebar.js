@@ -17,9 +17,10 @@ import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 
 import { Link } from "react-router-dom";
+
 const style = {
   display: "inline-block",
-  margin: "16px 32px 16px 0"
+  margin: "16px 32px 16px 0",
 };
 
 const Sidebar = () => (

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addTodo } from "../actions";
-import { addTodoIfNeeded } from "../actions";
 import Button from "@material-ui/core/Button";
+import { addTodo, addTodoIfNeeded } from "../actions";
+
 
 class AddTodo extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class AddTodo extends React.Component {
     return (
       <div>
         <form
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             if (!input.value.trim()) {
               return;
@@ -22,7 +22,7 @@ class AddTodo extends React.Component {
           }}
         >
           <input
-            ref={node => {
+            ref={(node) => {
               input = node;
             }}
           />
