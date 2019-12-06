@@ -26,9 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // つなぎこみ
-const ClientList = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ClientListView); // ViewにはReact.jsで用意したClientListを使用する
+const ClientList = connect(mapStateToProps, mapDispatchToProps)(ClientListView);
 
 export default ClientList;

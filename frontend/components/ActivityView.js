@@ -47,6 +47,8 @@ class ActivityView extends React.Component {
 
   saveHandleClick = () => {
     if (!this.state.selectedValue.actionId) {
+      console.log("saveHandleClick");
+      console.log(this.saveValue);
       this.props.addActivity(this.saveValue.value);
     } else {
       this.props.updateActivity(
@@ -58,10 +60,12 @@ class ActivityView extends React.Component {
   };
 
   render() {
-    const { activities } = this.props;
+    const { activities, error } = this.props;
 
     return (
       <div>
+        error:
+        {error && <span>{error}</span>}
         {activities && (
           <div>
             <FormControl className={s.list_activity}>
@@ -109,7 +113,6 @@ class ActivityView extends React.Component {
         >
           Ta bort aktivitet
         </Button>
-
         <input
           ref={this.saveValue}
           value={this.state.activityName}
@@ -137,6 +140,7 @@ ActivityView.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  error: PropTypes.string.isRequired,
   getActivitiesIfNeeded: PropTypes.func.isRequired,
   addActivity: PropTypes.func.isRequired,
   updateActivity: PropTypes.func.isRequired,

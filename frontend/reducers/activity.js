@@ -45,6 +45,12 @@ const activityApp = (state = initialState, action) => {
         ),
         isFetching: false,
       };
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false,
+      };
     default:
       return state;
   }

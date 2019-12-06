@@ -31,6 +31,7 @@
         "no-plusplus": "off",
         "react/destructuring-assignment": "off",
         "no-console": "off",
-        "operator-linebreak":"off"
+        "operator-linebreak":"off",
+        "implicit-arrow-linebreak":"off"
     }
 }

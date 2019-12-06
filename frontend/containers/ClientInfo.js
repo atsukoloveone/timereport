@@ -34,9 +34,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // つなぎこみ
-const ClientInfo = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ClientInfoView); // ViewにはReact.jsで用意したClientInfoを使用する
+const ClientInfo = connect(mapStateToProps, mapDispatchToProps)(ClientInfoView);
 
 export default ClientInfo;

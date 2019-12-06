@@ -71,23 +71,29 @@ router.post("/activity/create", function(req, res, next) {
   var query = "INSERT INTO ActionVO (??) VALUES (?)";
   var table = ["name", req.body.name];
   query = mysql.format(query, table);
+  console.log("create  " +  query);
   res.locals.connection.query(query, function(error, results, fields) {
     if (error) {
-      res.json({ Error: true, Message: error, req: req.body });
+	  res.status(500).send({ Error: true, Message: error, req: req.body });
+	  console.log("create error " +  error);
     } else {
       var query = "SELECT LAST_INSERT_ID() ";
       res.locals.connection.query(query, function(error, results, fields) {
         if (error) {
-          res.json({ Error: true, Message: error, req: req.body });
+		  res.status(500).json({ Error: true, Message: error, req: req.body });
+		  console.log("create error " +  error);
         } else {
           console.log("create", results);
           res.locals.connection.query(
             "SELECT * from ActionVO where actionId = " +
               results[0]["LAST_INSERT_ID()"],
             function(error, results, fields) {
-              if (error)
-                res.json({ Error: true, Message: error, req: req.body });
-              res.json(results);
+				 if (error) {
+					  res.status(500).json({ Error: true, Message: error, req: req.body });
+					  console.log("create error " +  error);
+				 } else {
+					 res.json(results);
+				 }
             }
           );
         }

@@ -3,9 +3,10 @@ const fetchActivities = () => ({
   type: "FETCH_ACTIVITIES",
 });
 
-function fetchPostsError() {
+function fetchPostsError(error) {
   return {
     type: "FETCH_ERROR",
+    error,
   };
 }
 
@@ -25,7 +26,7 @@ function getActivities() {
   };
 }
 
-export function addActivity(name) {
+export function addActivity(value) {
   return (dispatch) => {
     dispatch(fetchActivities());
     fetch("http://127.0.0.1:4000/timereport/activity/create", {
@@ -34,10 +35,16 @@ export function addActivity(name) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
+        name: value,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          dispatch(fetchPostsError("error"));
+          throw Error(response.statusText);
+        }
+        return response.json;
+      })
       .then((data) => {
         dispatch({
           type: "ADD_ACTIVITY",
