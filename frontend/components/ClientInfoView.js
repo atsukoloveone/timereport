@@ -177,8 +177,6 @@ ClientInfoView.propTypes = {
   updateClient: PropTypes.func.isRequired,
   addClient: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
-  openedClientNew: PropTypes.func.isRequired,
   modalIsOpen: PropTypes.bool.isRequired,
-  newClient: PropTypes.bool.isRequired,
 };
 export default ClientInfoView;

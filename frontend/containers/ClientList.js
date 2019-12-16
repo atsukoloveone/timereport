@@ -14,7 +14,6 @@ const mapStateToProps = (state) => {
   return {
     clients: state.clientApp.clients,
     modalIsOpen: state.clientApp.modalIsOpen,
-    newClient: state.clientApp.newClient,
   };
 };
 

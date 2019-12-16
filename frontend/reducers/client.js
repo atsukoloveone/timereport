@@ -13,7 +13,6 @@ const initialState = {
   },
   isFetching: false,
   modalIsOpen: false,
-  newClient: false,
 };
 // 一
 
@@ -91,17 +90,11 @@ const clientApp = (state = initialState, action) => {
           web: null,
         },
         modalIsOpen: true,
-        newClient: true,
       };
     case "HIDE_MODAL":
       return {
         ...state,
         modalIsOpen: false,
-      };
-    case "OPENED_CLIENTNEW":
-      return {
-        ...state,
-        newClient: false,
       };
     default:
       return state;

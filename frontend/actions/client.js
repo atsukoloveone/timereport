@@ -127,7 +127,3 @@ export function updateClient(clientId, value) {
 export const hideModal = () => ({
   type: "HIDE_MODAL",
 });
-
-export const openedClientNew = () => ({
-  type: "OPENED_CLIENTNEW",
-});
