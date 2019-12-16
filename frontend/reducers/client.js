@@ -1,8 +1,19 @@
 const initialState = {
   clients: [],
-  client: {},
+  client: {
+    clientId: null,
+    companyNumber: null,
+    companyType: null,
+    address: null,
+    contactPerson: null,
+    email: null,
+    name: null,
+    telephone: null,
+    web: null,
+  },
   isFetching: false,
   modalIsOpen: false,
+  newClient: false,
 };
 // 一
 
@@ -24,6 +35,8 @@ const clientApp = (state = initialState, action) => {
       return {
         clients: [action.payload.client, ...state.clients],
         isFetching: false,
+        client: action.payload.client,
+        modalIsOpen: false,
       };
     case "UPDATE_CLIENT":
       return {
@@ -33,6 +46,8 @@ const clientApp = (state = initialState, action) => {
           }
           return client;
         }),
+        client: action.payload.client,
+        modalIsOpen: false,
         isFetching: false,
       };
     case "DELETE_CLIENT":
@@ -40,25 +55,53 @@ const clientApp = (state = initialState, action) => {
         clients: state.clients.filter(
           (client) => client.clientId !== action.payload.clientId,
         ),
+        client: {
+          clientId: null,
+          companyNumber: null,
+          companyType: null,
+          address: null,
+          contactPerson: null,
+          email: null,
+          name: null,
+          telephone: null,
+          web: null,
+        },
+        modalIsOpen: false,
         isFetching: false,
       };
     case "RECEIVE_CLIENT":
       return {
         ...state,
-        client: action.client,
+        client: action.client[0],
         modalIsOpen: true,
         isFetching: false,
       };
     case "NEW_CLIENT":
       return {
         ...state,
-        client: {},
+        client: {
+          clientId: null,
+          companyNumber: null,
+          companyType: null,
+          address: null,
+          contactPerson: null,
+          email: null,
+          name: null,
+          telephone: null,
+          web: null,
+        },
         modalIsOpen: true,
+        newClient: true,
       };
     case "HIDE_MODAL":
       return {
         ...state,
         modalIsOpen: false,
+      };
+    case "OPENED_CLIENTNEW":
+      return {
+        ...state,
+        newClient: false,
       };
     default:
       return state;

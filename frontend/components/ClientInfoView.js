@@ -7,53 +7,31 @@ import Button from "@material-ui/core/Button";
 import s from "../index.css";
 
 class ClientInfoView extends React.Component {
-  static getDerivedStateFromProps(props, state) {
-    console.log("getDerivedStateFromProps start");
+  constructor(props) {
+    console.log("constructor");
     console.log(props);
-    console.log(state);
-    if (!props.client) {
+    super(props);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("getDerivedStateFromProps");
+    console.log(nextProps);
+    console.log(prevState);
+    if (!nextProps.modalIsOpen) {
       return null;
     }
-    if (!state.clientId && props.client.length > 0) {
-      console.log("getDerivedStateFromProps");
-      console.log(props.client[0]);
-      console.log(state);
-      return {
-        clientId: props.client[0].clientId,
-        companyNumber: props.client[0].companyNumber,
-        companyType: props.client[0].companyType,
-        address: props.client[0].address,
-        contactPerson: props.client[0].contactPerson,
-        email: props.client[0].email,
-        name: props.client[0].name,
-        telephone: props.client[0].telephone,
-        web: props.client[0].web,
-      };
+    if (!prevState) {
+      return nextProps.client;
     }
-    if (state.clientId && Object.keys(props.client).length === 0) {
-      console.log("getDerivedStateFromProps new");
-      console.log(props.client === false);
-      console.log(state);
-      return {
-        clientId: null,
-        companyNumber: null,
-        companyType: null,
-        address: null,
-        contactPerson: null,
-        email: null,
-        name: null,
-        telephone: null,
-        web: null,
-      };
+    if (nextProps.client.clientId !== prevState.clientId) {
+      return nextProps.client;
     }
-    console.log("getDerivedStateFromProps is null");
-
-    // Return null if the state hasn't changed
     return null;
   }
 
   handleClose = () => {
     console.log("handleClose");
+    this.setState({ clientId: null });
     this.props.hideModal();
   };
 
@@ -73,10 +51,7 @@ class ClientInfoView extends React.Component {
   };
 
   render() {
-    const { modalIsOpen } = this.props;
-    console.log("ClientInfoView render");
-    console.log(this.props);
-    console.log(this.state);
+    const { modalIsOpen, client } = this.props;
 
     return (
       <div>
@@ -113,7 +88,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("companyNumber")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.companyNumber}
+                  defaultValue={client.companyNumber}
                 />
                 <TextField
                   id="outlined-name"
@@ -122,7 +97,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("name")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.name}
+                  defaultValue={client.name}
                 />
                 <TextField
                   id="outlined-name"
@@ -131,7 +106,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("companyType")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.companyType}
+                  defaultValue={client.companyType}
                 />
                 <TextField
                   id="outlined-name"
@@ -140,7 +115,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("contactPerson")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.contactPerson}
+                  defaultValue={client.contactPerson}
                 />
                 <TextField
                   id="outlined-name"
@@ -149,7 +124,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("address")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.address}
+                  defaultValue={client.address}
                 />
                 <TextField
                   id="outlined-name"
@@ -158,7 +133,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("email")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.email}
+                  defaultValue={client.email}
                 />
                 <TextField
                   id="outlined-name"
@@ -167,7 +142,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("telephone")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.telephone}
+                  defaultValue={client.telephone}
                 />
                 <TextField
                   id="outlined-name"
@@ -176,7 +151,7 @@ class ClientInfoView extends React.Component {
                   onChange={this.handleChange("web")}
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.web}
+                  defaultValue={client.web}
                 />
               </Container>
             </div>
@@ -188,22 +163,22 @@ class ClientInfoView extends React.Component {
 }
 // 制約の指定
 ClientInfoView.propTypes = {
-  client: PropTypes.arrayOf(
-    PropTypes.shape({
-      clientId: PropTypes.number.isRequired,
-      companyNumber: PropTypes.string,
-      companyType: PropTypes.string,
-      address: PropTypes.string,
-      name: PropTypes.string,
-      contactPerson: PropTypes.string,
-      email: PropTypes.string,
-      telephone: PropTypes.string,
-      web: PropTypes.string,
-    }),
-  ).isRequired,
+  client: PropTypes.shape({
+    clientId: PropTypes.number.isRequired,
+    companyNumber: PropTypes.string,
+    companyType: PropTypes.string,
+    address: PropTypes.string,
+    name: PropTypes.string,
+    contactPerson: PropTypes.string,
+    email: PropTypes.string,
+    telephone: PropTypes.string,
+    web: PropTypes.string,
+  }).isRequired,
   updateClient: PropTypes.func.isRequired,
   addClient: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
+  openedClientNew: PropTypes.func.isRequired,
   modalIsOpen: PropTypes.bool.isRequired,
+  newClient: PropTypes.bool.isRequired,
 };
 export default ClientInfoView;

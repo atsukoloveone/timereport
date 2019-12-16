@@ -4,6 +4,7 @@ import {
   addClient,
   deleteClient,
   hideModal,
+  openedClientNew,
 } from "../actions/client";
 import ClientInfoView from "../components/ClientInfoView";
 
@@ -14,6 +15,7 @@ const mapStateToProps = (state) => {
   return {
     client: state.clientApp.client,
     modalIsOpen: state.clientApp.modalIsOpen,
+    newClient: state.clientApp.newClient,
   };
 };
 
@@ -30,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   deleteClient: (clientId) => {
     dispatch(deleteClient(clientId));
+  },
+  openedClientNew: () => {
+    dispatch(openedClientNew());
   },
 });
 

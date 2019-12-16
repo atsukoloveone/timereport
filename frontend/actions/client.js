@@ -31,7 +31,11 @@ const getClient = (clientId) => (dispatch) => {
   dispatch(fetchClients());
   return fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`)
     .then((response) => response.json())
-    .then((data) => dispatch(receiveClient(data)));
+    .then((data) => {
+      console.log("getClient actions");
+      console.log(data);
+      return dispatch(receiveClient(data));
+    });
 };
 
 export const getClientInfo = (clientId) => (dispatch, getState) => {
@@ -122,4 +126,8 @@ export function updateClient(clientId, value) {
 }
 export const hideModal = () => ({
   type: "HIDE_MODAL",
+});
+
+export const openedClientNew = () => ({
+  type: "OPENED_CLIENTNEW",
 });

@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { deleteClient, deleteClientIfNeeded } from "../actions/client";
 
-
-class DeleteClient extends React.Component {
+class DeleteClientbk extends React.Component {
   render() {
     let input;
     return (
@@ -30,4 +29,4 @@ class DeleteClient extends React.Component {
   }
 }
 
-export default connect()(DeleteClient);
+export default connect()(DeleteClientbk);
