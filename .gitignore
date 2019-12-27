@@ -46,3 +46,4 @@ bundle.js
 frontend/node_modules
 frontend/bundle.js
 frontend/package-lock.json
+frontend/.vscode/
