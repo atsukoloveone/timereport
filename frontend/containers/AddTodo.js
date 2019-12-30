@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { addTodo, addTodoIfNeeded } from "../actions";
 
-
 class AddTodo extends React.Component {
   render() {
     let input;

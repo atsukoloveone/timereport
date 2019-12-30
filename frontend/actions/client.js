@@ -82,8 +82,8 @@ export function addClient(value) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("addClient data");
-        // console.log(data);
+        console.log("addClient data");
+        console.log(data);
         dispatch({
           type: "ADD_CLIENT",
           payload: { client: data[0] },

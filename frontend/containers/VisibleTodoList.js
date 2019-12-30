@@ -11,6 +11,8 @@ const getVisibleTodos = (todos, filter) => {
       return todos.filter((t) => t.completed);
     case "SHOW_ACTIVE":
       return todos.filter((t) => !t.completed);
+    default:
+      return todos;
   }
 };
 
@@ -28,9 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // つなぎこみ
-const VisibleTodoList = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TodoList); // ViewにはReact.jsで用意したTodoListを使用する
+const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
+// ViewにはReact.jsで用意したTodoListを使用する
 
 export default VisibleTodoList;

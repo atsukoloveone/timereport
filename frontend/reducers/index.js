@@ -2,21 +2,21 @@ import { combineReducers } from "redux";
 
 // 一つ一つのTODOを処理するための関数（todosから利用されます）
 const todo = (state, action) => {
+  console.log("reducere todo");
+  console.log(state);
+  console.log(action);
   switch (action.type) {
     case "ADD_TODO":
       return {
         id: action.id,
         text: action.text,
-        completed: 0
+        completed: 0,
       };
     case "TOGGLE_TODO":
       if (state.id !== action.id) {
         return state;
       }
-
-      return Object.assign({}, state, {
-        completed: !state.completed
-      });
+      return { ...state, completed: !state.completed };
     default:
       return state;
   }
@@ -32,7 +32,7 @@ const todos = (state = [], action) => {
     case "ADD_TODO":
       return [...state, todo(undefined, action)];
     case "TOGGLE_TODO":
-      return state.map(t => todo(t, action));
+      return state.map((t) => todo(t, action));
     default:
       return state;
   }
@@ -49,8 +49,8 @@ const visibilityFilter = (state = "SHOW_ALL", action) => {
 };
 
 const todoApp = combineReducers({
-  todos: todos,
-  visibilityFilter: visibilityFilter
+  todos,
+  visibilityFilter,
 });
 
 export default todoApp;

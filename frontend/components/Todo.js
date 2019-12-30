@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Todoの実体は<li>~</li>
-function Todo() {
+const Todo = (props) => {
   return (
     <li
-      onClick={this.props.onClick}
+      onClick={props.onClick}
       style={{
-        textDecoration: this.props.completed ? "line-through" : "none",
+        textDecoration: props.completed ? "line-through" : "none",
       }}
     >
-      {this.props.id} {this.props.text}
+      {props.id} {props.text}
     </li>
   );
-}
+};
 
 // 制約の指定
 Todo.propTypes = {

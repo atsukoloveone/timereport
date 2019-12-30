@@ -27,6 +27,8 @@ function getActivities() {
 }
 
 export function addActivity(value) {
+  console.log("addActivity");
+  console.log(value);
   return (dispatch) => {
     dispatch(fetchActivities());
     fetch("http://127.0.0.1:4000/timereport/activity/create", {
@@ -43,9 +45,11 @@ export function addActivity(value) {
           dispatch(fetchPostsError("error"));
           throw Error(response.statusText);
         }
-        return response.json;
+        return response.json();
       })
       .then((data) => {
+        console.log("addActivity results");
+        console.log(data);
         dispatch({
           type: "ADD_ACTIVITY",
           payload: { actionId: data[0].actionId, name: data[0].name },

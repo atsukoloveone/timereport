@@ -46,12 +46,14 @@ class ActivityView extends React.Component {
   };
 
   saveHandleClick = () => {
+    console.log("saveHandleClick");
+    console.log(this.saveValue.current.value);
     if (!this.state.selectedValue.actionId) {
-      this.props.addActivity(this.saveValue.value);
+      this.props.addActivity(this.saveValue.current.value);
     } else {
       this.props.updateActivity(
         this.state.selectedValue.actionId,
-        this.saveValue.value,
+        this.saveValue.current.value,
       );
     }
     // this.setState({ selectedValue: this.state.selectedValue });

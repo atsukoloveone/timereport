@@ -1,9 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import {
-  createStore, applyMiddleware, combineReducers, compose,
-} from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 
 import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -12,9 +10,7 @@ import thunkMiddleware from "redux-thunk";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import {
-  Router, Route, browserHistory, BrowserRouter,
-} from "react-router-dom";
+import { Router, Route, browserHistory, BrowserRouter } from "react-router-dom";
 
 import { createHashHistory } from "history";
 import { getTodosIfNeeded } from "./actions";
@@ -34,7 +30,8 @@ const store = createStore(
   combineReducers({ activityApp, clientApp, todoApp }),
   compose(
     applyMiddleware(thunk, logger),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
 /* eslint-enable */

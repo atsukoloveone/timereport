@@ -87,11 +87,14 @@ router.post("/activity/create", function(req, res, next) {
           res.locals.connection.query(
             "SELECT * from ActionVO where actionId = " +
               results[0]["LAST_INSERT_ID()"],
+			  
             function(error, results, fields) {
 				 if (error) {
 					  res.status(500).json({ Error: true, Message: error, req: req.body });
 					  console.log("create error " +  error);
 				 } else {
+					 
+console.log("create activity results", results);						 
 					 res.json(results);
 				 }
             }
@@ -203,6 +206,7 @@ router.post("/client/create", function(req, res, next) {
             "SELECT * from ClientVO where clientId = " +
               results[0]["LAST_INSERT_ID()"],
             function(error, results, fields) {
+console.log("create client results", results);				
               if (error)
                 res.json({ Error: true, Message: error, req: req.body });
               res.json(results);
