@@ -13,7 +13,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Router, Route, browserHistory, BrowserRouter } from "react-router-dom";
 
 import { createHashHistory } from "history";
-import { getTodosIfNeeded } from "./actions";
+
 import todoApp from "./reducers/index";
 import activityApp from "./reducers/activity";
 import clientApp from "./reducers/client";

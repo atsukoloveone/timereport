@@ -39,16 +39,20 @@ export const setVisibilityFilter = (filter) => ({
 
 function getTodos() {
   return (dispatch) => {
-    dispatch(fetchTodos());
-    return fetch("http://127.0.0.1:4000/todos")
+    // dispatch(fetchTodos());
+    fetch("http://127.0.0.1:4000/todos")
       .then((response) => response.json())
       .then((data) => dispatch(receiveTodos(data)));
   };
 }
 
-function addTodoDb(text) {
+export function addTodoDb(text) {
+  console.log("addTodoDb");
+  console.log(text);
   return (dispatch) => {
-    dispatch(fetchTodos());
+    console.log("addTodoDb");
+    console.log(text);
+    // dispatch(fetchTodos());
     fetch("http://127.0.0.1:4000/todos/new", {
       method: "POST",
       headers: {
@@ -58,9 +62,9 @@ function addTodoDb(text) {
         text,
         completed: 0,
       }),
-    });
-    // .then(response => response.json())
-    // .then(data => dispatch(receiveTodos(data)));
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch(addTodo(data)));
   };
 }
 
@@ -70,14 +74,5 @@ export function getTodosIfNeeded() {
       return Promise.resolve();
     }
     return dispatch(getTodos());
-  };
-}
-
-export function addTodoIfNeeded(text) {
-  return (dispatch, getState) => {
-    if (getState().isFetching) {
-      return Promise.resolve();
-    }
-    return dispatch(addTodoDb(text));
   };
 }

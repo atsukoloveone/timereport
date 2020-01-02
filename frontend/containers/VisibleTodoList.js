@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { toggleTodo } from "../actions/index";
+import { toggleTodo, getTodosIfNeeded } from "../actions/index";
 import TodoList from "../components/TodoList";
 
 // フィルタリング状態によってTODOリストの絞り込みを行う
@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
     // ActionCreatorからActionを取得し、Storeに渡す
     dispatch(toggleTodo(id));
   },
+  getTodosIfNeeded: () => dispatch(getTodosIfNeeded()),
 });
 
 // つなぎこみ
