@@ -33,6 +33,8 @@ const todos = (state = [], action) => {
       return [...state, todo(undefined, action)];
     case "TOGGLE_TODO":
       return state.map((t) => todo(t, action));
+    case "DELETE_TODOS":
+      return [];
     default:
       return state;
   }

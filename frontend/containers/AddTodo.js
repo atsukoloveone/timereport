@@ -2,37 +2,39 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import { addTodoDb } from "../actions";
+import { addTodoDb, deleteTodo } from "../actions";
 
 class AddTodo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.saveValue = React.createRef();
-  }
-
-  saveHandleClick = () => {
-    console.log("saveHandleClick");
-    console.log(this.saveValue.current.value);
-
-    this.props.addTodoDb(this.saveValue.current.value);
-
-    // this.setState({ selectedValue: this.state.selectedValue });
-  };
-
   render() {
     let input;
 
     return (
       <div>
         <form
-          onSubmit={this.saveHandleClick}
-          // this.props.addTodoDb(input.value);
-          // ActionCreatorからActionを取得し、Storeに渡している
-          // input.value = "";
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!input.value.trim()) {
+              return;
+            }
+            this.props.addTodoDb(input.value);
+            // ActionCreatorからActionを取得し、Storeに渡している
+            input.value = "";
+          }}
         >
-          <input ref={this.saveValue} />
+          <input
+            ref={(node) => {
+              input = node;
+            }}
+          />
           <Button type="submit" className="btn btn-large btn-primary">
             Add Todo
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => this.props.deleteTodo()}
+          >
+            Ta bort
           </Button>
         </form>
       </div>
@@ -42,10 +44,16 @@ class AddTodo extends React.Component {
 
 AddTodo.propTypes = {
   addTodoDb: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  error: state.todoApp.error,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addTodoDb: (value) => dispatch(addTodoDb(value)),
+  deleteTodo: () => dispatch(deleteTodo()),
 });
 
-export default connect(mapDispatchToProps)(AddTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

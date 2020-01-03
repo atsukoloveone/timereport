@@ -19,14 +19,14 @@ export function fetchPostsError() {
 }
 
 // TODOを追加する
-export const addTodo = (text) => ({
+const addTodo = (text) => ({
   type: "ADD_TODO",
   id: nextTodoId++,
   text,
 });
 
 // TODOを完了する
-export const toggleTodo = (id) => ({
+const toggleTodo = (id) => ({
   type: "TOGGLE_TODO",
   id,
 });
@@ -39,7 +39,6 @@ export const setVisibilityFilter = (filter) => ({
 
 function getTodos() {
   return (dispatch) => {
-    // dispatch(fetchTodos());
     fetch("http://127.0.0.1:4000/todos")
       .then((response) => response.json())
       .then((data) => dispatch(receiveTodos(data)));
@@ -47,12 +46,7 @@ function getTodos() {
 }
 
 export function addTodoDb(text) {
-  console.log("addTodoDb");
-  console.log(text);
   return (dispatch) => {
-    console.log("addTodoDb");
-    console.log(text);
-    // dispatch(fetchTodos());
     fetch("http://127.0.0.1:4000/todos/new", {
       method: "POST",
       headers: {
@@ -64,10 +58,33 @@ export function addTodoDb(text) {
       }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch(addTodo(data)));
+      .then(() => dispatch(addTodo(text)));
   };
 }
 
+export function toggleTodoDb(id) {
+  return (dispatch) => {
+    fetch(`http://127.0.0.1:4000/todos/${id}`, {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then(() => dispatch(toggleTodo(id)));
+  };
+}
+
+export function deleteTodo() {
+  return (dispatch) => {
+    fetch("http://127.0.0.1:4000/todos/", {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => {
+        dispatch({
+          type: "DELETE_TODOS",
+        });
+      });
+  };
+}
 export function getTodosIfNeeded() {
   return (dispatch, getState) => {
     if (getState().isFetching) {
