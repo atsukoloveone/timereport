@@ -1,15 +1,17 @@
+import * as actionTypes from "../actionTypes";
+
 // CLIENTをfetchする
 const fetchClients = () => ({
-  type: "FETCH_CLIENTS",
+  type: actionTypes.FETCH_CLIENTS,
 });
 
 const receiveClients = (clients) => ({
-  type: "RECEIVE_CLIENTS",
+  type: actionTypes.RECEIVE_CLIENTS,
   clients,
 });
 
 const receiveClient = (client) => ({
-  type: "RECEIVE_CLIENT",
+  type: actionTypes.RECEIVE_CLIENT,
   client,
 });
 
@@ -46,7 +48,7 @@ export const getClientInfo = (clientId) => (dispatch, getState) => {
 };
 
 export const newClient = () => ({
-  type: "NEW_CLIENT",
+  type: actionTypes.NEW_CLIENT,
 });
 
 export function deleteClient(clientId) {
@@ -58,7 +60,7 @@ export function deleteClient(clientId) {
       .then((response) => response.json())
       .then(() => {
         dispatch({
-          type: "DELETE_CLIENT",
+          type: actionTypes.DELETE_CLIENT,
           payload: { clientId },
         });
       })
@@ -85,7 +87,7 @@ export function addClient(value) {
         console.log("addClient data");
         console.log(data);
         dispatch({
-          type: "ADD_CLIENT",
+          type: actionTypes.ADD_CLIENT,
           payload: { client: data[0] },
         });
       })
@@ -96,9 +98,6 @@ export function addClient(value) {
 }
 
 export function updateClient(clientId, value) {
-  // console.log("updateClient");
-  // console.log(clientId);
-  // console.log(value);
   return (dispatch) => {
     dispatch(fetchClients());
     fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`, {
@@ -112,10 +111,8 @@ export function updateClient(clientId, value) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("updateClient data");
-        // console.log(data);
         dispatch({
-          type: "UPDATE_CLIENT",
+          type: actionTypes.UPDATE_CLIENT,
           payload: { client: data[0] },
         });
       })
@@ -125,5 +122,5 @@ export function updateClient(clientId, value) {
   };
 }
 export const hideModal = () => ({
-  type: "HIDE_MODAL",
+  type: actionTypes.HIDE_MODAL,
 });

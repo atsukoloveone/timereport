@@ -1,3 +1,5 @@
+import * as actionTypes from "../actionTypes";
+
 const initialState = {
   clients: [],
   client: {
@@ -23,21 +25,21 @@ const clientApp = (state = initialState, action) => {
   console.log(action);
 
   switch (action.type) {
-    case "FETCH_CLIENTS":
+    case actionTypes.FETCH_CLIENTS:
       return {
         ...state,
         isFetching: true,
       };
-    case "RECEIVE_CLIENTS":
+    case actionTypes.RECEIVE_CLIENTS:
       return { ...state, clients: action.clients, isFetching: false };
-    case "ADD_CLIENT":
+    case actionTypes.ADD_CLIENT:
       return {
         clients: [action.payload.client, ...state.clients],
         isFetching: false,
         client: action.payload.client,
         modalIsOpen: false,
       };
-    case "UPDATE_CLIENT":
+    case actionTypes.UPDATE_CLIENT:
       return {
         clients: state.clients.map((client) => {
           if (client.clientId === action.payload.client.clientId) {
@@ -49,7 +51,7 @@ const clientApp = (state = initialState, action) => {
         modalIsOpen: false,
         isFetching: false,
       };
-    case "DELETE_CLIENT":
+    case actionTypes.DELETE_CLIENT:
       return {
         clients: state.clients.filter(
           (client) => client.clientId !== action.payload.clientId,
@@ -68,14 +70,14 @@ const clientApp = (state = initialState, action) => {
         modalIsOpen: false,
         isFetching: false,
       };
-    case "RECEIVE_CLIENT":
+    case actionTypes.RECEIVE_CLIENT:
       return {
         ...state,
         client: action.client[0],
         modalIsOpen: true,
         isFetching: false,
       };
-    case "NEW_CLIENT":
+    case actionTypes.NEW_CLIENT:
       return {
         ...state,
         client: {
@@ -91,7 +93,7 @@ const clientApp = (state = initialState, action) => {
         },
         modalIsOpen: true,
       };
-    case "HIDE_MODAL":
+    case actionTypes.HIDE_MODAL:
       return {
         ...state,
         modalIsOpen: false,

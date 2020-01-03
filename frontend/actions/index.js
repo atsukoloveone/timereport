@@ -1,39 +1,39 @@
-let nextTodoId = 10; // TODOのid管理するための変数
-
 // TODOをfetchする
+import * as actionTypes from "../actionTypes";
+
 export const fetchTodos = () => ({
-  type: "FETCH_TODOS",
+  type: actionTypes.FETCH_TODOS,
 });
 
 export function receiveTodos(todos) {
   return {
-    type: "RECEIVE_TODOS",
+    type: actionTypes.RECEIVE_TODOS,
     todos,
   };
 }
 
 export function fetchPostsError() {
   return {
-    type: "FETCH_ERROR",
+    type: actionTypes.FETCH_ERROR,
   };
 }
 
 // TODOを追加する
-const addTodo = (text) => ({
-  type: "ADD_TODO",
-  id: nextTodoId++,
+const addTodo = (id, text) => ({
+  type: actionTypes.ADD_TODO,
+  id,
   text,
 });
 
 // TODOを完了する
 const toggleTodo = (id) => ({
-  type: "TOGGLE_TODO",
+  type: actionTypes.TOGGLE_TODO,
   id,
 });
 
 // TODOをフィルタリングする
 export const setVisibilityFilter = (filter) => ({
-  type: "SET_VISIBILITY_FILTER_TODO",
+  type: actionTypes.SET_VISIBILITY_FILTER_TODO,
   filter,
 });
 
@@ -57,8 +57,16 @@ export function addTodoDb(text) {
         completed: 0,
       }),
     })
-      .then((response) => response.json())
-      .then(() => dispatch(addTodo(text)));
+      .then((response) => {
+        if (!response.ok) {
+          dispatch(fetchPostsError("error"));
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dispatch(addTodo(data, text));
+      });
   };
 }
 
@@ -80,7 +88,7 @@ export function deleteTodo() {
       .then((response) => response.json())
       .then(() => {
         dispatch({
-          type: "DELETE_TODOS",
+          type: actionTypes.DELETE_TODOS,
         });
       });
   };

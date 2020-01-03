@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import * as actionTypes from "../actionTypes";
 
 // 一つ一つのTODOを処理するための関数（todosから利用されます）
 const todo = (state, action) => {
@@ -6,13 +7,13 @@ const todo = (state, action) => {
   console.log(state);
   console.log(action);
   switch (action.type) {
-    case "ADD_TODO":
+    case actionTypes.ADD_TODO:
       return {
         id: action.id,
         text: action.text,
         completed: 0,
       };
-    case "TOGGLE_TODO":
+    case actionTypes.TOGGLE_TODO:
       if (state.id !== action.id) {
         return state;
       }
@@ -25,15 +26,15 @@ const todo = (state, action) => {
 // 複数のTODOを処理するための関数
 const todos = (state = [], action) => {
   switch (action.type) {
-    case "FETCH_TODOS":
+    case actionTypes.FETCH_TODOS:
       return state;
-    case "RECEIVE_TODOS":
+    case actionTypes.RECEIVE_TODOS:
       return action.todos;
-    case "ADD_TODO":
+    case actionTypes.ADD_TODO:
       return [...state, todo(undefined, action)];
-    case "TOGGLE_TODO":
+    case actionTypes.TOGGLE_TODO:
       return state.map((t) => todo(t, action));
-    case "DELETE_TODOS":
+    case actionTypes.DELETE_TODOS:
       return [];
     default:
       return state;
@@ -43,7 +44,7 @@ const todos = (state = [], action) => {
 // TODOの表示状態を処理するための関数
 const visibilityFilter = (state = "SHOW_ALL", action) => {
   switch (action.type) {
-    case "SET_VISIBILITY_FILTER_TODO":
+    case actionTypes.SET_VISIBILITY_FILTER_TODO:
       return action.filter;
     default:
       return state;

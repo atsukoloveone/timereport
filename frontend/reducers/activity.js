@@ -1,3 +1,5 @@
+import * as actionTypes from "../actionTypes";
+
 const initialState = {
   activities: [],
   isFetching: false,
@@ -6,23 +8,20 @@ const initialState = {
 
 // 複数のACTIVITYを処理するための関数
 const activityApp = (state = initialState, action) => {
-  console.log("reducere activities action");
-  console.log(state);
-  console.log(action);
   switch (action.type) {
-    case "FETCH_ACTIVITIES":
+    case actionTypes.FETCH_ACTIVITIES:
       return {
         ...state,
         isFetching: true,
       };
-    case "RECEIVE_ACTIVITIES":
+    case actionTypes.RECEIVE_ACTIVITIES:
       return { activities: action.activities, isFetching: false };
-    case "ADD_ACTIVITY":
+    case actionTypes.ADD_ACTIVITY:
       return {
         activities: [action.payload, ...state.activities],
         isFetching: false,
       };
-    case "UPDATE_ACTIVITY":
+    case actionTypes.UPDATE_ACTIVITY:
       return {
         activities: state.activities.map((activity) => {
           if (activity.actionId === action.payload.actionId) {
@@ -39,14 +38,14 @@ const activityApp = (state = initialState, action) => {
         isFetching: false,
       };
 
-    case "DELETE_ACTIVITY":
+    case actionTypes.DELETE_ACTIVITY:
       return {
         activities: state.activities.filter(
           (activity) => activity.actionId !== action.payload.actionId,
         ),
         isFetching: false,
       };
-    case "FETCH_ERROR":
+    case actionTypes.FETCH_ERROR:
       return {
         ...state,
         error: action.error,

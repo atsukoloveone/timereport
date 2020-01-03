@@ -1,18 +1,20 @@
+import * as actionTypes from "../actionTypes";
+
 // ACTIVITYをfetchする
 const fetchActivities = () => ({
-  type: "FETCH_ACTIVITIES",
+  type: actionTypes.FETCH_ACTIVITIES,
 });
 
 function fetchPostsError(error) {
   return {
-    type: "FETCH_ERROR",
+    type: actionTypes.FETCH_ERROR,
     error,
   };
 }
 
 function receiveActivities(activities) {
   return {
-    type: "RECEIVE_ACTIVITIES",
+    type: actionTypes.RECEIVE_ACTIVITIES,
     activities,
   };
 }
@@ -51,7 +53,7 @@ export function addActivity(value) {
         console.log("addActivity results");
         console.log(data);
         dispatch({
-          type: "ADD_ACTIVITY",
+          type: actionTypes.ADD_ACTIVITY,
           payload: { actionId: data[0].actionId, name: data[0].name },
         });
       });
@@ -73,7 +75,7 @@ export function updateActivity(actionId, value) {
       .then((response) => response.json())
       .then((data) => {
         dispatch({
-          type: "UPDATE_ACTIVITY",
+          type: actionTypes.UPDATE_ACTIVITY,
           payload: { actionId: data[0].actionId, name: data[0].name },
         });
       });
@@ -89,7 +91,7 @@ export function deleteActivity(actionId) {
       .then((response) => response.json())
       .then(() => {
         dispatch({
-          type: "DELETE_ACTIVITY",
+          type: actionTypes.DELETE_ACTIVITY,
           payload: { actionId },
         });
       });

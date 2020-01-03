@@ -24,9 +24,21 @@ router.get('/:id', function(req, res, next) {
 router.post('/new', function(req, res, next) {
   res.locals.connection.query("insert into todos(text,completed) values('"+req.body.text+ "',"+req.body.completed+")", function (error, results, fields) {
 
-        if(error) throw error;
-		//res.send(JSON.stringify(results));
-        res.json({"Error" : false, "Message" : results, "req" : req.body});
+   if (error) {
+	  res.status(500).send({ Error: true, Message: error, req: req.body });
+	  console.log("create error " +  error);
+   } else {
+      var query = "SELECT LAST_INSERT_ID() ";
+      res.locals.connection.query(query, function(error, results, fields) {
+        if (error) {
+		  res.status(500).json({ Error: true, Message: error, req: req.body });
+		  console.log("create error " +  error);
+        } else {
+			 res.json(results[0]["LAST_INSERT_ID()"]);
+			 console.log("create", results);
+        }
+      });
+    }
     });
 });
 
