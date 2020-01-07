@@ -1,12 +1,15 @@
-import * as actions from "../actions/activity";
+import * as actionTypes from "../actionTypes";
+import * as actions from "../actions/index";
 
 describe("actions", () => {
   it("should create an action to add a activity", () => {
     const text = "Finish docs";
+    const id = 1000;
     const expectedAction = {
-      type: "ADD_ACTIVITY",
+      type: actionTypes.ADD_TODO,
+      id,
       text,
     };
-    expect(actions.addActivity(text)).toEqual(expectedAction);
+    expect(actions.addTodo(id, text)).toEqual(expectedAction);
   });
 });

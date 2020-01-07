@@ -36,6 +36,12 @@ const todos = (state = [], action) => {
       return state.map((t) => todo(t, action));
     case actionTypes.DELETE_TODOS:
       return [];
+    case actionTypes.FETCH_ERROR_TODOS:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false,
+      };
     default:
       return state;
   }

@@ -1,25 +1,26 @@
 // TODOをfetchする
 import * as actionTypes from "../actionTypes";
 
-export const fetchTodos = () => ({
+const fetchTodos = () => ({
   type: actionTypes.FETCH_TODOS,
 });
 
-export function receiveTodos(todos) {
+function fetchTodosFailure(ex) {
+  return {
+    type: actionTypes.FETCH_ERROR_TODOS,
+    ex,
+  };
+}
+
+function receiveTodos(todos) {
   return {
     type: actionTypes.RECEIVE_TODOS,
     todos,
   };
 }
 
-export function fetchPostsError() {
-  return {
-    type: actionTypes.FETCH_ERROR,
-  };
-}
-
 // TODOを追加する
-const addTodo = (id, text) => ({
+export const addTodo = (id, text) => ({
   type: actionTypes.ADD_TODO,
   id,
   text,
@@ -37,11 +38,13 @@ export const setVisibilityFilter = (filter) => ({
   filter,
 });
 
-function getTodos() {
+export function getTodos() {
   return (dispatch) => {
-    fetch("http://127.0.0.1:4000/todos")
+    dispatch(fetchTodos());
+    return fetch("http://127.0.0.1:4000/todos")
       .then((response) => response.json())
-      .then((data) => dispatch(receiveTodos(data)));
+      .then((data) => dispatch(receiveTodos(data)))
+      .catch((ex) => dispatch(fetchTodosFailure(ex)));
   };
 }
 
@@ -59,7 +62,7 @@ export function addTodoDb(text) {
     })
       .then((response) => {
         if (!response.ok) {
-          dispatch(fetchPostsError("error"));
+          dispatch(fetchTodosFailure("error"));
           throw Error(response.statusText);
         }
         return response.json();

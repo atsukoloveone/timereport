@@ -18,3 +18,4 @@ export const DELETE_CLIENT = "DELETE_CLIENT";
 export const RECEIVE_CLIENT = "RECEIVE_CLIENT";
 export const NEW_CLIENT = "NEW_CLIENT";
 export const HIDE_MODAL = "HIDE_MODAL";
+export const FETCH_ERROR_TODOS = "FETCH_ERROR_TODOS";
