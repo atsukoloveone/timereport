@@ -1,8 +1,13 @@
 import { combineReducers } from "redux";
 import * as actionTypes from "../actionTypes";
 
+const initialState = {
+  id: 0,
+  text: "Use Redux",
+  completed: false,
+};
 // 一つ一つのTODOを処理するための関数（todosから利用されます）
-const todo = (state, action) => {
+const todo = (state = initialState, action) => {
   console.log("reducere todo");
   console.log(state);
   console.log(action);
@@ -11,7 +16,7 @@ const todo = (state, action) => {
       return {
         id: action.id,
         text: action.text,
-        completed: 0,
+        completed: false,
       };
     case actionTypes.TOGGLE_TODO:
       if (state.id !== action.id) {
@@ -25,6 +30,9 @@ const todo = (state, action) => {
 
 // 複数のTODOを処理するための関数
 const todos = (state = [], action) => {
+  console.log("reducere todos");
+  console.log(state);
+  console.log(action);
   switch (action.type) {
     case actionTypes.FETCH_TODOS:
       return state;

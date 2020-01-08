@@ -57,7 +57,7 @@ export function addTodoDb(text) {
       },
       body: JSON.stringify({
         text,
-        completed: 0,
+        completed: false,
       }),
     })
       .then((response) => {
