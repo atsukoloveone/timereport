@@ -1,4 +1,7 @@
+import config from "../config";
 import * as actionTypes from "../actionTypes";
+
+const url = config.serverLocalUrl;
 
 // ACTIVITYをfetchする
 const fetchActivities = () => ({
@@ -22,7 +25,7 @@ function receiveActivities(activities) {
 function getActivities() {
   return (dispatch) => {
     dispatch(fetchActivities());
-    return fetch("http://127.0.0.1:4000/timereport/activities")
+    return fetch(`${url}/timereport/activities`)
       .then((response) => response.json())
       .then((data) => dispatch(receiveActivities(data)));
   };
@@ -33,7 +36,7 @@ export function addActivity(value) {
   console.log(value);
   return (dispatch) => {
     dispatch(fetchActivities());
-    fetch("http://127.0.0.1:4000/timereport/activity/create", {
+    fetch(`${url}/timereport/activity/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +66,7 @@ export function addActivity(value) {
 export function updateActivity(actionId, value) {
   return (dispatch) => {
     dispatch(fetchActivities());
-    fetch(`http://127.0.0.1:4000/timereport/activity/${actionId}`, {
+    fetch(`${url}/timereport/activity/${actionId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +88,7 @@ export function updateActivity(actionId, value) {
 export function deleteActivity(actionId) {
   return (dispatch) => {
     dispatch(fetchActivities());
-    fetch(`http://127.0.0.1:4000/timereport/activity/${actionId}`, {
+    fetch(`${url}/timereport/activity/${actionId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())

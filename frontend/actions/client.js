@@ -1,4 +1,7 @@
+import config from "../config";
 import * as actionTypes from "../actionTypes";
+
+const url = config.serverLocalUrl;
 
 // CLIENTをfetchする
 const fetchClients = () => ({
@@ -17,7 +20,7 @@ const receiveClient = (client) => ({
 
 const getClients = () => (dispatch) => {
   dispatch(fetchClients());
-  return fetch("http://127.0.0.1:4000/timereport/clients")
+  return fetch(`${url}/timereport/clients`)
     .then((response) => response.json())
     .then((data) => dispatch(receiveClients(data)));
 };
@@ -31,7 +34,7 @@ export const getClientsIfNeeded = () => (dispatch, getState) => {
 
 const getClient = (clientId) => (dispatch) => {
   dispatch(fetchClients());
-  return fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`)
+  return fetch(`${url}timereport/client/${clientId}`)
     .then((response) => response.json())
     .then((data) => {
       console.log("getClient actions");
@@ -54,7 +57,7 @@ export const newClient = () => ({
 export function deleteClient(clientId) {
   return (dispatch) => {
     dispatch(fetchClients());
-    fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`, {
+    fetch(`${url}/timereport/client/${clientId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -73,7 +76,7 @@ export function deleteClient(clientId) {
 export function addClient(value) {
   return (dispatch) => {
     dispatch(fetchClients());
-    fetch("http://127.0.0.1:4000/timereport/client/create", {
+    fetch(`${url}/timereport/client/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +103,7 @@ export function addClient(value) {
 export function updateClient(clientId, value) {
   return (dispatch) => {
     dispatch(fetchClients());
-    fetch(`http://127.0.0.1:4000/timereport/client/${clientId}`, {
+    fetch(`${url}/timereport/client/${clientId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
