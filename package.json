@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "echo This is Test-Script",
+    "deploy": "echo This is Deploy-Script"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
