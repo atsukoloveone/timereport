@@ -7,6 +7,7 @@ jobs:
       - checkout
       - run: echo "Time report" # run the `echo` command
       - run: 
+        name: Testing application
         command: npm run test
         working_directory: ~/frontend 
       # - run: npm run deploy
