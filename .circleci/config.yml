@@ -4,9 +4,9 @@ jobs:
     docker:
       - image: circleci/node:10.16.0
     steps:
-      paths:
-            - ~/frontend
       - checkout
       - run: echo "Time report" # run the `echo` command
-      - run: npm run test
-      - run: npm run deploy
+      - run: 
+        command: npm run test
+        working_directory: frontend 
+      # - run: npm run deploy
