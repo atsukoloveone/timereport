@@ -6,8 +6,13 @@ jobs:
     steps:
       - checkout
       - run: echo "Time report" # run the `echo` command
-      - run: 
-        name: Testing application
-        command: npm run test
-        working_directory: ~/frontend 
-      # - run: npm run deploy
+      # - run: npm run deploy        
+ frontend:
+    docker:
+      - image: circleci/node:10.8.0
+    working_directory:  ~/frontend 
+    steps:
+      - checkout
+      - run: echo "Time report frontend" # run the `echo` command
+      - run: npm run lint
+
