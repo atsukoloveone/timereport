@@ -14,5 +14,5 @@ jobs:
     steps:
       - checkout
       - run: echo "Time report frontend" # run the `echo` command
-      - run: npm run lint
+      #- run: npm run lint
 
