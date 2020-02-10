@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.0
-    working_directory:  frontend 
+     build_dir: frontend 
     steps:
       - checkout
       - run: echo "Time report" # run the `echo` command
