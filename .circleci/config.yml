@@ -8,5 +8,5 @@ jobs:
       - run: echo "Time report" # run the `echo` command
       - run: 
         command: npm run test
-        working_directory: frontend 
+        working_directory: ~/frontend 
       # - run: npm run deploy
