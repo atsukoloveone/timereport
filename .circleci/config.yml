@@ -3,9 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.0
-     build_dir: frontend 
     steps:
       - checkout
       - run: echo "Time report" # run the `echo` command
-      - run: npm run test        
+      - run: 
+          command: |
+            cd frontend
+            npm run test    
 
