@@ -6,5 +6,5 @@ jobs:
     steps:
       - checkout
       - run: echo "Time report" # run the `echo` command
-      # - run: npm run test
+      - run: npm run test
       # - run: npm run deploy
