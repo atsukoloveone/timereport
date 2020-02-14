@@ -26,7 +26,7 @@ export default class Link extends React.Component {
 
   // onMouseLeave()  {
   onMouseLeave = () => {
-    this.setState({ class: STATUS.NORMAL1 });
+    this.setState({ class: STATUS.NORMAL });
   };
 
   render() {
