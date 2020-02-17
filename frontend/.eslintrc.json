@@ -2,8 +2,7 @@
     "env": {
         "browser": true,
         "es6": true,
-        "node": true,
-        "jest/globals": true
+        "node": true
     },
     "extends": [
         "airbnb",
@@ -24,8 +23,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "jest"
+        "react"
     ],
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -35,11 +33,6 @@
         "no-console": "off",
         "operator-linebreak":"off",
         "implicit-arrow-linebreak":"off",
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error",
         "react/jsx-props-no-spreading":"off"        
     }
 }
